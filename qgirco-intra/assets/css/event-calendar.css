@@ -1,0 +1,146 @@
+/* ========== CALENDAR VIEW ========== */
+.events_calendar {
+  margin-top: 8px;
+  border-radius: 8px;
+  border: 1px solid #d6d7e6;
+  padding: 18px 18px 26px;
+  background: #fff;
+}
+
+/* Header */
+.cal_header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.cal_month_label {
+  font-size: 18px;
+  font-weight: 600;
+  color: #283252;
+}
+
+.cal_nav_btn {
+  border: 0;
+  background: transparent;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #2c2f43;
+  cursor: pointer;
+}
+
+.cal_nav_btn:hover {
+  background: #f2f2fb;
+}
+
+/* Weekdays row */
+.cal_weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  margin-bottom: 6px;
+}
+
+.cal_weekday {
+  text-align: center;
+  font-size: 13px;
+  font-weight: 600;
+  color: #565b77;
+  padding: 6px 0;
+}
+
+/* Grid */
+.cal_grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  border-top: 1px solid #cfd2e4;
+  border-left: 1px solid #cfd2e4;
+}
+
+/* Cells */
+.cal_cell {
+  min-height: 78px;
+  border-right: 1px solid #cfd2e4;
+  border-bottom: 1px solid #cfd2e4;
+  padding: 8px 8px 6px;
+  background: #fff;
+  position: relative;
+}
+
+.cal_cell.is-empty {
+  background: #fff;
+}
+
+/* Day number */
+.cal_day {
+  font-size: 13px;
+  font-weight: 600;
+  color: #2c2f43;
+  line-height: 1;
+}
+
+/* Event highlight */
+.cal_cell.has-event {
+  background: #eef0ff;
+  outline: 1px solid #6c72d8;
+  outline-offset: -1px;
+}
+
+/* Event chips inside a cell */
+.cal_event {
+  margin-top: 6px;
+  display: flex;
+  align-items: center;
+}
+
+/* Avatar */
+.cal_event_avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  overflow: hidden;
+  margin-right: 6px;
+  flex-shrink: 0;
+}
+
+.cal_event_avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Event text */
+.cal_event_meta {
+  min-width: 0;
+}
+
+.cal_event_title {
+  font-size: 11px;
+  font-weight: 700;
+  color: #283252;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.cal_event_time {
+  font-size: 10px;
+  color: #6e7391;
+}
+
+/* Responsive */
+
+@media (max-width: 767.98px) {
+  .events_calendar {
+    padding: 12px;
+  }
+  .cal_cell {
+    min-height: 64px;
+    padding: 6px;
+  }
+  .cal_month_label {
+    font-size: 16px;
+  }
+}

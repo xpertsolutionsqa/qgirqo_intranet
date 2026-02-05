@@ -1,0 +1,27 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+@source '../**/*.jsx';
+@source '../**/*.tsx';
+
+@plugin "@tailwindcss/forms";
+
+@theme {
+    --font-sans: 'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif;
+
+    /* QGIRCO Brand Colors */
+    --color-primary: #2f2f8f;
+    --color-primary-hover: #3b3bb0;
+    --color-secondary: #3b3bb0;
+    --color-qa-bg: #f5f6ff;
+    --color-qa-bg-light: #f5f5fd;
+    --color-qa-muted: #7a7a9a;
+    --color-qa-border: #e6e8ff;
+    --color-qa-gray: #e6e6e6;
+
+    --radius-qa: 6px;
+    --shadow-qa: 0 10px 28px rgba(18, 24, 40, 0.08);
+}
