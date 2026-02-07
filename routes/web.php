@@ -21,7 +21,6 @@ Route::get('/company-events', [App\Http\Controllers\PublicEventController::class
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-
     Route::resource('news', NewsController::class);
     Route::resource('events', EventController::class);
     Route::resource('employees', EmployeeController::class);

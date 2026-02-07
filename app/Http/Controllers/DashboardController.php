@@ -102,10 +102,10 @@ class DashboardController extends Controller
             'events' => Post::where('type', 'event')->where('is_published', true)->latest()->take(6)->get(),
             'polls' => Poll::latest()->take(1)->with(['options.votes', 'votes', 'creator'])->first(),
             'birthdays' => UserResource::collection(
-                User::whereHas('profile', fn($q) => $q->upcomingBirthdays($days))->with('profile')->get()
+                User::whereHas('profile', fn($q) => $q->whereNotNull('dob')->upcomingBirthdays($days))->with('profile')->get()
             ),
             'anniversaries' => UserResource::collection(
-                User::whereHas('profile', fn($q) => $q->upcomingAnniversaries($days))->with('profile')->get()
+                User::whereHas('profile', fn($q) => $q->whereNotNull('joining_date')->upcomingAnniversaries($days))->with('profile')->get()
             ),
             'gceo_message' => GceoMessage::where('is_active', true)->latest('published_at')->first(),
             'recent_photos' => \App\Models\Album::with('photos')

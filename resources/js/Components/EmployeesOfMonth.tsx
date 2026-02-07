@@ -22,7 +22,7 @@ export default function EmployeesOfMonth({ winners = [] }: { winners?: any[] }) 
     return (
         <div className="qg_card rounded-qa shadow-qa flex h-full flex-col overflow-hidden bg-[#e5e5f9]">
             <div className="bg-primary p-[16px_24px] text-center">
-                <h3 className="m-0 text-[22px] font-bold text-white">
+                <h3 className="m-0 text-2xl font-bold text-white">
                     Employees of the Month
                 </h3>
             </div>
@@ -41,10 +41,10 @@ export default function EmployeesOfMonth({ winners = [] }: { winners?: any[] }) 
                     className="h-full"
                 >
                     {employees.map((winner) => (
-                        <SwiperSlide key={winner.id}>
-                            <div className="flex h-full flex-col">
-                                <div className="p-4">
-                                    <div className="rounded-qa border-qa-border h-[180px] w-full overflow-hidden border">
+                        <SwiperSlide key={winner.id} className="!h-full">
+                            <div className="flex h-full flex-col items-center">
+                                <div className="p-4 shrink-0">
+                                    <div className="rounded-qa border-qa-border h-[150px] w-[150px] overflow-hidden border">
                                         <img
                                             src={winner.user.profile?.avatar ? `/storage/${winner.user.profile.avatar}` : (winner.user.profile?.image || 'https://images.unsplash.com/photo-1556157382-97eda2d62296?q=80&w=600&auto=format&fit=crop')}
                                             alt={winner.user.name}
@@ -52,7 +52,7 @@ export default function EmployeesOfMonth({ winners = [] }: { winners?: any[] }) 
                                         />
                                     </div>
                                 </div>
-                                <div className="flex flex-grow flex-col justify-center p-[0_22px_22px] text-center">
+                                <div className="flex grow flex-col items-center justify-center bg-qa-gray p-8 w-full text-center">
                                     <div className="mb-1 text-[18px] font-bold text-black line-clamp-1">
                                         {winner.user.name}
                                     </div>
@@ -71,10 +71,10 @@ export default function EmployeesOfMonth({ winners = [] }: { winners?: any[] }) 
                 </Swiper>
             </div>
 
-            <div className="flex h-[52px] items-center justify-center gap-[10px] p-[10px_26px]">
+            <div className="flex h-[52px] items-center justify-center gap-[10px] p-[10px_26px] bg-qa-gray">
                 <div className="flex items-center gap-[2px]">
                     <button className="emp-prev flex h-[34px] w-[34px] cursor-pointer items-center justify-center rounded-[10px] border-none bg-transparent text-black hover:bg-white/40 disabled:cursor-auto disabled:opacity-30">
-                        <i className="fa-light fa-chevron-left text-[14px]"></i>
+                        <i className="fa-Employee Promotions & Offerslight fa-chevron-left text-[14px]"></i>
                     </button>
                     <div className="emp-pagination flex !w-auto items-center" />
                     <button className="emp-next flex h-[34px] w-[34px] cursor-pointer items-center justify-center rounded-[10px] border-none bg-transparent text-black hover:bg-white/40 disabled:cursor-auto disabled:opacity-30">

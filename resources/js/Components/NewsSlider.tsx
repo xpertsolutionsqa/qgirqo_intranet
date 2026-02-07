@@ -62,14 +62,14 @@ export default function NewsSlider({ news }: any) {
                                 <div className="news_desc mb-4 text-[14px] leading-relaxed">
                                     {item.summary || item.description || ''}
                                 </div>
-                                <div className="news_action">
+                                {/* <div className="news_action">
                                     <Link
                                         href={item.link || `/news/${item.slug}`}
                                         className="btn bg-primary inline-block rounded-full px-6 py-2 text-[14px] text-white transition-colors hover:bg-black"
                                     >
                                         Read more
                                     </Link>
-                                </div>
+                                </div> */}
                             </div>
                         </div>
                     </SwiperSlide>

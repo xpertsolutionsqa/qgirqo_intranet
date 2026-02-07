@@ -57,18 +57,41 @@ class EmployeeController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8',
+            'email' => 'nullable|string|email|max:255|unique:users',
+            'password' => 'nullable|string|min:8',
             'role' => 'required|string|exists:roles,name',
             'department_id' => 'required|exists:departments,id',
             'designation_id' => 'required|exists:designations,id',
-            'employee_id' => 'required|string|unique:employee_profiles,employee_id',
+            'employee_id' => 'nullable|string|unique:employee_profiles,employee_id',
             'phone' => 'nullable|string',
             'dob' => 'nullable|date',
             'joining_date' => 'nullable|date',
             'emergency_contact' => 'nullable|string',
             'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
+
+        if (empty($validated['email'])) {
+            $firstName = strtolower(explode(' ', $validated['name'])[0]);
+            $baseEmail = $firstName . '@qgirco.com';
+            $email = $baseEmail;
+            $count = 1;
+            while (User::where('email', $email)->exists()) {
+                $email = $firstName . $count . '@qgirco.com';
+                $count++;
+            }
+            $validated['email'] = $email;
+        }
+
+        if (empty($validated['password'])) {
+            $firstName = strtolower(explode(' ', $validated['name'])[0]);
+            $validated['password'] = $firstName;
+        }
+
+        if (empty($validated['employee_id'])) {
+            $lastProfile = \App\Models\EmployeeProfile::orderBy('id', 'desc')->first();
+            $nextId = $lastProfile ? intval($lastProfile->id) + 1 : 1;
+            $validated['employee_id'] = 'QG-' . str_pad($nextId, 5, '0', STR_PAD_LEFT);
+        }
 
         $this->employeeService->createEmployee($validated);
 

@@ -15,8 +15,8 @@ export default function UpcomingEvents({
     events?: EventPost[];
 }) {
     const chunks = [];
-    for (let i = 0; i < events.length; i += 4) {
-        chunks.push(events.slice(i, i + 4));
+    for (let i = 0; i < events.length; i += 3) {
+        chunks.push(events.slice(i, i + 3));
     }
 
     return (

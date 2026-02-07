@@ -1,16 +1,16 @@
-import { Link } from '@inertiajs/react';
+
 
 export default function QuickLinks() {
     const links = [
         {
             label: 'HR',
             icon: '/assets/img/person-fill-check.svg',
-            href: '#',
+            href: 'https://ent-qa.menaitech.com/QGI/application/hrms/mename/index.php',
         },
         {
             label: 'IT',
             icon: '/assets/img/pc-display.svg',
-            href: '#',
+            href: 'http://sdc.qgirco.com',
         },
         {
             label: 'Speak Up',
@@ -52,9 +52,15 @@ export default function QuickLinks() {
             aria-label="Quick actions"
         >
             {links.map((link, idx) => (
-                <Link
+                <a
                     key={idx}
                     href={link.href}
+                    target={link.href.startsWith('http') ? '_blank' : undefined}
+                    rel={
+                        link.href.startsWith('http')
+                            ? 'noopener noreferrer'
+                            : undefined
+                    }
                     className="border-primary hover:bg-primary group flex h-[100px] w-[100px] flex-col items-center justify-center rounded-[12px] border-2 bg-white p-[10px_8px] text-center decoration-0 transition-all duration-300 hover:scale-110 hover:text-white"
                 >
                     <img
@@ -70,7 +76,7 @@ export default function QuickLinks() {
                             {link.subtext}
                         </small>
                     )}
-                </Link>
+                </a>
             ))}
         </nav>
     );

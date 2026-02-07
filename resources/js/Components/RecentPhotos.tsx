@@ -27,11 +27,11 @@ export default function RecentPhotos({ photos = [] }: { photos?: Photo[] }) {
         photos.length > 0
             ? photos
             : [
-                  { id: 1, file_path: '/assets/img/Rectangle-1402.jpg' },
-                  { id: 2, file_path: '/assets/img/Rectangle-1403.jpg' },
-                  { id: 3, file_path: '/assets/img/Rectangle-1404.jpg' },
-                  { id: 4, file_path: '/assets/img/Rectangle-1405.jpg' },
-              ];
+                { id: 1, file_path: '/assets/img/Rectangle-1402.jpg' },
+                { id: 2, file_path: '/assets/img/Rectangle-1403.jpg' },
+                { id: 3, file_path: '/assets/img/Rectangle-1404.jpg' },
+                { id: 4, file_path: '/assets/img/Rectangle-1405.jpg' },
+            ];
 
     return (
         <section
@@ -43,7 +43,7 @@ export default function RecentPhotos({ photos = [] }: { photos?: Photo[] }) {
                     Recently Uploaded Photos
                 </h3>
                 <div className="flex w-full items-center gap-4 md:w-auto">
-                    <div className="relative flex-grow md:w-[240px]">
+                    {/* <div className="relative flex-grow md:w-[240px]">
                         <input
                             type="text"
                             className="focus:ring-primary focus:border-primary h-10 w-full rounded-[6px] border-gray-300 px-4 pr-10 text-[14px]"
@@ -52,13 +52,13 @@ export default function RecentPhotos({ photos = [] }: { photos?: Photo[] }) {
                         <button className="text-primary absolute top-1/2 right-3 -translate-y-1/2">
                             <i className="fa-light fa-filter text-[18px]"></i>
                         </button>
-                    </div>
-                    <Link
+                    </div> */}
+                    {/* <Link
                         href={route('gallery.index')}
                         className="text-primary text-[14px] font-bold whitespace-nowrap underline transition-colors hover:text-black"
                     >
                         Open Gallery
-                    </Link>
+                    </Link> */}
                 </div>
             </div>
 

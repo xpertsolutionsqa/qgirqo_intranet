@@ -107,7 +107,6 @@ export default function CreateEmployeeModal({
                                 onChange={(e) =>
                                     setData('email', e.target.value)
                                 }
-                                required
                             />
                             <InputError
                                 message={errors.email}
@@ -127,7 +126,6 @@ export default function CreateEmployeeModal({
                                 onChange={(e) =>
                                     setData('password', e.target.value)
                                 }
-                                required
                             />
                             <InputError
                                 message={errors.password}
@@ -172,7 +170,6 @@ export default function CreateEmployeeModal({
                                 onChange={(e) =>
                                     setData('employee_id', e.target.value)
                                 }
-                                required
                             />
                             <InputError
                                 message={errors.employee_id}

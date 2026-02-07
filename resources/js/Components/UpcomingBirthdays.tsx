@@ -15,8 +15,8 @@ export default function UpcomingBirthdays({
     birthdays: User[];
 }) {
     const chunks = [];
-    for (let i = 0; i < birthdays.length; i += 6) {
-        chunks.push(birthdays.slice(i, i + 6));
+    for (let i = 0; i < birthdays.length; i += 4) {
+        chunks.push(birthdays.slice(i, i + 4));
     }
 
     return (
@@ -42,11 +42,11 @@ export default function UpcomingBirthdays({
                 >
                     {chunks.map((chunk, idx) => (
                         <SwiperSlide key={idx}>
-                            <ul className="m-0 list-none p-0">
+                            <ul className="m-0 list-none py-2 px-2 ">
                                 {chunk.map((item) => (
                                     <li
                                         key={item.id}
-                                        className="relative grid grid-cols-[46px_42px_1fr_44px] items-center gap-[10px] py-[10px] after:absolute after:inset-x-0 after:bottom-0 after:h-[2px] after:rounded-[2px] after:bg-[rgba(47,47,143,0.35)] after:content-[''] last:after:hidden"
+                                        className="relative grid grid-cols-[46px_42px_1fr_44px] items-center gap-[10px] py-[20px] after:absolute after:inset-x-0 after:bottom-0 after:h-[2px] after:rounded-[2px] after:bg-[rgba(47,47,143,0.35)] after:content-[''] last:after:hidden"
                                     >
                                         <div className="text-primary text-center leading-[1.05] font-bold">
                                             <span className="block text-[18px]">

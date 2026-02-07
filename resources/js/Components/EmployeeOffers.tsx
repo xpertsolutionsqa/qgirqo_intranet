@@ -13,7 +13,7 @@ export default function EmployeeOffers({ offers = [] }: { offers?: any[] }) {
         <div className="qg_card rounded-qa shadow-qa relative flex h-full flex-col overflow-hidden bg-[#e5e5f9]">
             {/* Header with Blue Fill */}
             <div className="bg-primary p-[16px_24px] text-center">
-                <h3 className="m-0 text-[22px] font-bold text-white">
+                <h3 className="m-0 text-2xl font-bold text-white">
                     Employee Promotions & Offers
                 </h3>
             </div>
