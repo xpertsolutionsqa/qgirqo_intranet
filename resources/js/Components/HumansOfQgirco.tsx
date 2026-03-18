@@ -40,72 +40,48 @@ export default function HumansOfQgirco({ featured }: { featured?: HumansWall | n
 
                 <div className="qg_card_body flex flex-grow flex-col p-0">
                     {/* Top Section: Photo + Quote */}
-                    <div className="flex items-start gap-4 p-4">
-                        <div className="rounded-qa border-qa-border h-[150px] w-[140px] shrink-0 overflow-hidden border">
+                    <div className="flex h-[250px] items-center gap-4 p-3 bg-white">
+                        <div className="rounded-qa border-qa-border h-[120px] w-[110px] shrink-0 overflow-hidden border">
                             <img
                                 src={avatar}
                                 alt={employeeName}
                                 className="h-full w-full object-cover"
                             />
                         </div>
-                        <div className="flex flex-col justify-center">
-                            <div className="mb-6 text-lg font-bold uppercase">
+                        <div className="flex flex-col justify-center overflow-hidden">
+                            <div className="mb-1 text-[16px] font-bold uppercase truncate">
                                 Meet {employeeName}
                             </div>
-                            <p className="text-lg text-primary leading-[1.3] font-medium text-black italic">
+                            <p className="text-[14px] text-primary leading-[1.2] font-medium text-black italic line-clamp-2">
                                 “ {featured?.quote || ''} ”
                             </p>
                         </div>
                     </div>
 
                     {/* Bottom Section: Description */}
-                    <div className="flex h-full flex-col item-center justify-center bg-qa-gray p-8">
-                        <div className="mb-4">
-                            <p className="text-[13px] leading-[1.5] text-black line-clamp-3">
+                    <div className="flex flex-grow flex-col justify-center bg-qa-gray p-4 w-full">
+                        <div className="">
+                            <p className="text-[13px] leading-[1.4] text-black line-clamp-2">
                                 {featured ? (
-                                    <>This month we celebrate <strong>{employeeName}</strong> from our {deptName}. {featured.story}</>
+                                    <>{featured?.story}</>
                                 ) : (
-                                    `This month we celebrate [Employee Name] from our Community Relations Team. She recently organised a beach clean-up event with over 50 volunteers.`
+                                    `This month we celebrate ${employeeName} from our ${deptName}.`
                                 )}
                             </p>
                             {featured && featured.story && (
                                 <button
                                     onClick={() => setShowFullStory(true)}
-                                    className="text-primary hover:text-black mt-1 text-[13px] font-bold"
+                                    className="text-primary hover:text-black mt-1 text-[12px] font-bold inline-block"
                                 >
                                     Read More
                                 </button>
                             )}
                         </div>
-
-                        {/* <div className="mb-4 h-px bg-white" /> */}
-
-                        {/* <div className="flex gap-3">
-                            <Link
-                                href="#"
-                                className="text-primary group flex items-center gap-3 text-[14px] font-bold hover:underline"
-                            >
-                                <img
-                                    src="/assets/img/journal-bookmark-fill.png"
-                                    className="h-auto w-[18px] object-contain"
-                                    alt="Icon"
-                                />
-                                Employee Handbook
-                            </Link>
-                            <Link
-                                href="#"
-                                className="text-primary group flex items-center gap-3 text-[14px] font-bold hover:underline"
-                            >
-                                <img
-                                    src="/assets/img/hanger-off.png"
-                                    className="h-auto w-[18px] object-contain"
-                                    alt="Icon"
-                                />
-                                Dress Code Policy
-                            </Link>
-                        </div> */}
                     </div>
                 </div>
+
+                {/* Footer Placeholder */}
+                <div className="flex h-[40px] items-center justify-center bg-qa-gray border-t border-black/5" />
             </div>
 
             {/* Full Story Modal */}

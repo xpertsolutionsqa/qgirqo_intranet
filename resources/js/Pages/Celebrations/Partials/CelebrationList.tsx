@@ -16,9 +16,10 @@ interface Employee {
 interface Props {
     items: Employee[];
     type: 'birthday' | 'anniversary';
+    onWish: (user: Employee, type: 'birthday' | 'anniversary') => void;
 }
 
-export default function CelebrationList({ items = [], type }: Props) {
+export default function CelebrationList({ items = [], type, onWish }: Props) {
     // Group by date
     const grouped = items.reduce((acc: any, item) => {
         const dateStr = type === 'birthday' ? item.profile.dob : item.profile.joining_date;
@@ -74,8 +75,11 @@ export default function CelebrationList({ items = [], type }: Props) {
                                         </div>
                                     </div>
                                     <div className="ml-auto">
-                                        <button className="text-primary hover:text-black transition-colors p-2">
-                                            <i className="fa-light fa-paper-plane text-lg"></i>
+                                        <button
+                                            onClick={() => onWish(item, type)}
+                                            className="bg-primary/5 hover:bg-primary text-primary hover:text-white transition-all px-4 py-1.5 rounded-full text-[11px] font-bold"
+                                        >
+                                            Wish
                                         </button>
                                     </div>
                                 </div>

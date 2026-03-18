@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import dayjs from 'dayjs';
 import PublicHeader from '@/Components/PublicHeader';
 import PublicFooter from '@/Components/PublicFooter';
 import QuickLinks from '@/Components/QuickLinks';
@@ -20,6 +21,46 @@ export default function Index({ events, categories, filters }: any) {
     }, []);
 
     const page_title = 'Company Events & Schedule';
+
+    const downloadIcsFile = (event: any) => {
+        const title = event.title;
+        const venue = event.event_venue || 'N/A';
+        const date = dayjs(event.event_date).format('YYYYMMDD');
+
+        // Use default times if not provided
+        const startTime = event.event_time ? dayjs(event.event_time).format('HHmmss') : '090000';
+        const endTime = event.event_end_time ? dayjs(event.event_end_time).format('HHmmss') : '170000';
+
+        const icsContent = [
+            'BEGIN:VCALENDAR',
+            'VERSION:2.0',
+            'CALSCALE:GREGORIAN',
+            'BEGIN:VEVENT',
+            `SUMMARY:${title}`,
+            `DTSTART:${date}T${startTime}`,
+            `DTEND:${date}T${endTime}`,
+            `LOCATION:${venue}`,
+            `DESCRIPTION:Event: ${title}\\nVenue: ${venue}`,
+            'STATUS:CONFIRMED',
+            'BEGIN:VALARM',
+            'TRIGGER:-PT15M',
+            'ACTION:DISPLAY',
+            'DESCRIPTION:Reminder: ' + title,
+            'END:VALARM',
+            'END:VEVENT',
+            'END:VCALENDAR'
+        ].join('\r\n');
+
+        const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', `${title.replace(/[^a-z0-9]/gi, '_').toLowerCase()}.ics`);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        window.URL.revokeObjectURL(url);
+    };
 
     return (
         <div className="flex min-h-screen flex-col bg-white font-sans text-black">
@@ -72,9 +113,9 @@ export default function Index({ events, categories, filters }: any) {
 
                             <div data-aos="fade-up" data-aos-delay="100">
                                 {viewMode === 'list' ? (
-                                    <EventListView events={events} />
+                                    <EventListView events={events} onAddCalendar={downloadIcsFile} />
                                 ) : (
-                                    <EventCalendarView events={events} />
+                                    <EventCalendarView events={events} onAddCalendar={downloadIcsFile} />
                                 )}
                             </div>
                         </div>

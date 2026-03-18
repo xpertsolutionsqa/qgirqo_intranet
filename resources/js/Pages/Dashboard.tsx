@@ -1,4 +1,5 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
+import CreateChallengeForm from '@/Components/CreateChallengeForm';
 import { Head } from '@inertiajs/react';
 import {
     ArcElement,
@@ -214,6 +215,28 @@ export default function Dashboard({
                     </div>
                 </div>
 
+                {/* Challenge Section */}
+                <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
+                    <div className="lg:col-span-2">
+                        {/* You can add something else here later or leave it for now */}
+                        <div className="rounded-2xl border border-dashed border-gray-200 p-6 flex items-center justify-center text-gray-400 dark:border-gray-700">
+                            Keep pushing your limits!
+                        </div>
+                    </div>
+                    <div className="lg:col-span-1">
+                        <div className="overflow-hidden rounded-2xl border border-gray-100 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
+                            <h3 className="mb-4 text-lg font-bold">Quick Actions</h3>
+                            <a
+                                href={route('challenges.index')}
+                                className="inline-flex w-full items-center justify-center rounded-xl bg-indigo-600 py-3 text-sm font-bold text-white transition-all hover:bg-indigo-700 shadow-md"
+                            >
+                                <i className="fa-solid fa-list-check mr-2"></i>
+                                Manage Challenges
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
                 <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
                     {/* Birthdays Section */}
                     <div className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm dark:border-gray-700 dark:bg-gray-800">
@@ -261,7 +284,7 @@ export default function Dashboard({
                                                 new Date(
                                                     user.profile.dob,
                                                 ).getMonth() ===
-                                                    new Date().getMonth() && (
+                                                new Date().getMonth() && (
                                                     <span className="animate-pulse rounded-full bg-green-100 px-2 py-1 text-[10px] font-bold tracking-wider text-green-600 uppercase">
                                                         Today!
                                                     </span>
@@ -324,7 +347,7 @@ export default function Dashboard({
                                                             user.profile
                                                                 .joining_date,
                                                         ).getFullYear() ===
-                                                    1
+                                                        1
                                                         ? 'Year'
                                                         : 'Years'}
                                                 </p>

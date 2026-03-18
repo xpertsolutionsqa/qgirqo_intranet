@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Imports\EmployeesImport;
 use App\Models\User;
 use App\Models\Department;
 use App\Models\Designation;
 use App\Services\EmployeeService;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Maatwebsite\Excel\Facades\Excel;
 use Spatie\Permission\Models\Role;
 
 class EmployeeController extends Controller
@@ -128,5 +130,19 @@ class EmployeeController extends Controller
         $this->employeeService->deleteEmployee($user);
 
         return redirect()->back()->with('success', 'Employee deleted successfully');
+    }
+
+    public function import(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|mimes:csv,xls,xlsx|max:10240',
+        ]);
+
+        try {
+            Excel::import(new EmployeesImport, $request->file('file'));
+            return redirect()->back()->with('success', 'Employees imported successfully.');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Error importing employees: ' . $e->getMessage());
+        }
     }
 }

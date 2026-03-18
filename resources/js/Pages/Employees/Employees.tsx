@@ -5,6 +5,7 @@ import { Head, router } from '@inertiajs/react';
 import { useState } from 'react';
 import CreateEmployeeModal from './Partials/CreateEmployeeModal';
 import EditEmployeeModal from './Partials/EditEmployeeModal';
+import ImportEmployeeModal from './Partials/ImportEmployeeModal';
 
 interface Employee {
     id: number;
@@ -41,12 +42,16 @@ export default function Employees({
 }: Props) {
     const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+    const [isImportModalOpen, setIsImportModalOpen] = useState(false);
     const [selectedEmployee, setSelectedEmployee] = useState<Employee | null>(
         null,
     );
 
     const openCreateModal = () => setIsCreateModalOpen(true);
     const closeCreateModal = () => setIsCreateModalOpen(false);
+
+    const openImportModal = () => setIsImportModalOpen(true);
+    const closeImportModal = () => setIsImportModalOpen(false);
 
     const openEditModal = (employee: Employee) => {
         setSelectedEmployee(employee);
@@ -70,9 +75,17 @@ export default function Employees({
                     <h2 className="text-xl leading-tight font-semibold text-gray-800 dark:text-gray-200">
                         Employee Management
                     </h2>
-                    <PrimaryButton onClick={openCreateModal}>
-                        Add Employee
-                    </PrimaryButton>
+                    <div className="flex items-center gap-3">
+                        <button
+                            onClick={openImportModal}
+                            className="bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-md py-2 px-4 shadow-sm text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700 focus:outline-none transition-colors"
+                        >
+                            Import Excel
+                        </button>
+                        <PrimaryButton onClick={openCreateModal}>
+                            Add Employee
+                        </PrimaryButton>
+                    </div>
                 </div>
             }
         >
@@ -210,6 +223,11 @@ export default function Employees({
                 departments={departments}
                 designations={designations}
                 roles={roles}
+            />
+
+            <ImportEmployeeModal
+                show={isImportModalOpen}
+                onClose={closeImportModal}
             />
         </AuthenticatedLayout>
     );

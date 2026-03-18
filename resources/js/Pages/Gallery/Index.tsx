@@ -7,6 +7,7 @@ import { useState } from 'react';
 interface Photo {
     id: number;
     file_path: string;
+    type: 'image' | 'video';
     caption: string | null;
     created_at: string;
 }
@@ -42,7 +43,7 @@ export default function Index({ photos }: { photos: PaginatedPhotos }) {
                         Gallery
                     </h2>
                     <PrimaryButton onClick={() => setShowCreateModal(true)}>
-                        Upload Photo
+                        Upload Media
                     </PrimaryButton>
                 </div>
             }
@@ -54,8 +55,8 @@ export default function Index({ photos }: { photos: PaginatedPhotos }) {
                     <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg dark:bg-gray-800">
                         <div className="p-6 text-gray-900 dark:text-gray-100">
                             {!photos ||
-                            !photos.data ||
-                            photos.data.length === 0 ? (
+                                !photos.data ||
+                                photos.data.length === 0 ? (
                                 <div className="py-12 text-center">
                                     <p className="text-gray-500 dark:text-gray-400">
                                         No photos yet. Upload your first photo!
@@ -72,14 +73,28 @@ export default function Index({ photos }: { photos: PaginatedPhotos }) {
                                                     setSelectedPhoto(photo)
                                                 }
                                             >
-                                                <img
-                                                    src={photo.file_path}
-                                                    alt={
-                                                        photo.caption ||
-                                                        'Gallery photo'
-                                                    }
-                                                    className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-110"
-                                                />
+                                                {photo.type === 'video' ? (
+                                                    <div className="relative h-full w-full">
+                                                        <video
+                                                            src={photo.file_path}
+                                                            className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-110"
+                                                        />
+                                                        <div className="absolute inset-0 flex items-center justify-center">
+                                                            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white/30 backdrop-blur-sm group-hover:bg-white/50">
+                                                                <i className="fa-solid fa-play text-xl text-white"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                ) : (
+                                                    <img
+                                                        src={photo.file_path}
+                                                        alt={
+                                                            photo.caption ||
+                                                            'Gallery photo'
+                                                        }
+                                                        className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-110"
+                                                    />
+                                                )}
                                                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 transition-opacity group-hover:opacity-100">
                                                     <div className="absolute right-0 bottom-0 left-0 p-3">
                                                         {photo.caption && (
@@ -118,11 +133,10 @@ export default function Index({ photos }: { photos: PaginatedPhotos }) {
                                                             )
                                                         }
                                                         disabled={!link.url}
-                                                        className={`rounded px-3 py-1 text-sm ${
-                                                            link.active
+                                                        className={`rounded px-3 py-1 text-sm ${link.active
                                                                 ? 'bg-indigo-600 text-white'
                                                                 : 'bg-gray-200 text-gray-700 hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-300'
-                                                        } ${!link.url ? 'cursor-not-allowed opacity-50' : ''}`}
+                                                            } ${!link.url ? 'cursor-not-allowed opacity-50' : ''}`}
                                                         dangerouslySetInnerHTML={{
                                                             __html: link.label,
                                                         }}
@@ -145,11 +159,20 @@ export default function Index({ photos }: { photos: PaginatedPhotos }) {
                     onClick={() => setSelectedPhoto(null)}
                 >
                     <div className="relative max-h-[90vh] max-w-[90vw]">
-                        <img
-                            src={selectedPhoto.file_path}
-                            alt={selectedPhoto.caption || 'Gallery photo'}
-                            className="max-h-[90vh] max-w-[90vw] object-contain"
-                        />
+                        {selectedPhoto.type === 'video' ? (
+                            <video
+                                src={selectedPhoto.file_path}
+                                controls
+                                autoPlay
+                                className="max-h-[90vh] max-w-[90vw]"
+                            />
+                        ) : (
+                            <img
+                                src={selectedPhoto.file_path}
+                                alt={selectedPhoto.caption || 'Gallery photo'}
+                                className="max-h-[90vh] max-w-[90vw] object-contain"
+                            />
+                        )}
                         {selectedPhoto.caption && (
                             <p className="mt-4 text-center text-white">
                                 {selectedPhoto.caption}

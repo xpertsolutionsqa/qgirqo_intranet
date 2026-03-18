@@ -19,6 +19,46 @@ export default function UpcomingEvents({
         chunks.push(events.slice(i, i + 3));
     }
 
+    const downloadIcsFile = (event: EventPost) => {
+        const title = event.title;
+        const venue = event.event_venue || 'N/A';
+        const date = dayjs(event.event_date).format('YYYYMMDD');
+
+        // Use default times if not provided
+        const startTime = event.event_time ? dayjs(event.event_time).format('HHmmss') : '090000';
+        const endTime = event.event_end_time ? dayjs(event.event_end_time).format('HHmmss') : '170000';
+
+        const icsContent = [
+            'BEGIN:VCALENDAR',
+            'VERSION:2.0',
+            'CALSCALE:GREGORIAN',
+            'BEGIN:VEVENT',
+            `SUMMARY:${title}`,
+            `DTSTART:${date}T${startTime}`,
+            `DTEND:${date}T${endTime}`,
+            `LOCATION:${venue}`,
+            `DESCRIPTION:Event: ${title}\\nVenue: ${venue}`,
+            'STATUS:CONFIRMED',
+            'BEGIN:VALARM',
+            'TRIGGER:-PT15M',
+            'ACTION:DISPLAY',
+            'DESCRIPTION:Reminder: ' + title,
+            'END:VALARM',
+            'END:VEVENT',
+            'END:VCALENDAR'
+        ].join('\r\n');
+
+        const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', `${title.replace(/[^a-z0-9]/gi, '_').toLowerCase()}.ics`);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        window.URL.revokeObjectURL(url);
+    };
+
     return (
         <div className="qg_card rounded-qa shadow-qa flex h-full flex-col overflow-hidden bg-primary/1">
             <div className="p-[16px_24px] text-center">
@@ -77,6 +117,7 @@ export default function UpcomingEvents({
                                             <button
                                                 className="text-primary/40 hover:text-primary transition-colors pr-4"
                                                 title="Add to calendar"
+                                                onClick={() => downloadIcsFile(event)}
                                             >
                                                 <i className="fa-duotone fa-solid fa-calendar-plus text-[20px]"></i>
                                             </button>

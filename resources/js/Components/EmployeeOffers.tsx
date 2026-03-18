@@ -19,9 +19,9 @@ export default function EmployeeOffers({ offers = [] }: { offers?: any[] }) {
             </div>
 
             {/* Filter Icon like in original */}
-            <button className="text-primary absolute top-[35%] right-3 z-20 mt-[-50px] -translate-y-[50%]">
+            {/* <button className="text-primary absolute top-[35%] right-3 z-20 mt-[-50px] -translate-y-[50%]">
                 <i className="fa-light fa-filter text-[22px]"></i>
-            </button>
+            </button> */}
 
             <div className="flex-grow p-0">
                 <Swiper

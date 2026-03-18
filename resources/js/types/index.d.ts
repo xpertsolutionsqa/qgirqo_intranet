@@ -10,5 +10,7 @@ export type PageProps<
 > = T & {
     auth: {
         user: User;
+        role: string;
+        desc: string;
     };
 };

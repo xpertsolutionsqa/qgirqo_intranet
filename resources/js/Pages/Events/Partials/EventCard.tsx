@@ -11,7 +11,13 @@ interface Event {
     featured_image?: string;
 }
 
-export default function EventCard({ event }: { event: Event }) {
+export default function EventCard({
+    event,
+    onAddCalendar
+}: {
+    event: Event,
+    onAddCalendar: (event: any) => void
+}) {
     const date = dayjs(event.event_date);
 
     // Format time if it exists
@@ -48,7 +54,11 @@ export default function EventCard({ event }: { event: Event }) {
 
                 {/* Calendar Add Icon (Visual only for now) */}
                 <div className="p-4 flex items-start">
-                    <button className="text-secondary opacity-40 hover:opacity-100 transition-opacity" title="Add to Calendar">
+                    <button
+                        onClick={() => onAddCalendar(event)}
+                        className="text-secondary opacity-40 hover:opacity-100 transition-opacity"
+                        title="Add to Calendar"
+                    >
                         <i className="fa-duotone fa-calendar-plus text-xl"></i>
                     </button>
                 </div>

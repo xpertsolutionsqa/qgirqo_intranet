@@ -12,7 +12,13 @@ class Album extends Model
         'slug',
         'description',
         'cover_image',
+        'event_date',
         'is_active',
+    ];
+
+    protected $casts = [
+        'event_date' => 'date',
+        'is_active' => 'boolean',
     ];
 
 

@@ -5,15 +5,27 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 // Import Swiper styles
 import { User } from '@/interfaces/EmployeeProfile';
 import dayjs from 'dayjs';
+import { useState } from 'react';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
+import EmployeeAvatar from '@/Components/EmployeeAvatar';
+import WishModal from '@/Components/WishModal';
+import LoginModal from '@/Components/LoginModal';
+import { usePage } from '@inertiajs/react';
+
 
 export default function WorkAnniversaries({
     anniversaries,
 }: {
     anniversaries: User[];
 }) {
+    const { auth } = usePage<any>().props;
+    const [wishUser, setWishUser] = useState<User | null>(null);
+    const [showWishModal, setShowWishModal] = useState(false);
+    const [showLoginModal, setShowLoginModal] = useState(false);
+
+
     // Split data into chunks of 6 (as per the PHP slide structure)
     const chunks = [];
     for (let i = 0; i < anniversaries.length; i += 4) {
@@ -61,26 +73,30 @@ export default function WorkAnniversaries({
                                                 )}
                                             </span>
                                         </div>
-                                        <div className="border-qa-border h-[42px] w-[42px] overflow-hidden rounded-full border bg-gray-200">
-                                            <img
-                                                src={`/storage/${item.profile.avatar}`}
-                                                alt={item.name.charAt(0)}
-                                                onError={(e) => {
-                                                    e.currentTarget.src = `https://placehold.co/42x42?text=${item.name.charAt(0)}`;
-                                                }}
-                                                className="h-full w-full object-cover"
-                                            />
-                                        </div>
+                                        <EmployeeAvatar
+                                            src={item.profile.avatar}
+                                            alt={item.name}
+                                            className="h-[42px] w-[42px]"
+                                        />
                                         <div className="text-[14px] font-medium text-black">
                                             {item.name}
                                         </div>
                                         <div className="flex justify-end">
                                             <button
+                                                onClick={() => {
+                                                    if (!auth.user) {
+                                                        setShowLoginModal(true);
+                                                        return;
+                                                    }
+                                                    setWishUser(item);
+                                                    setShowWishModal(true);
+                                                }}
                                                 className="text-primary transition-colors hover:text-black"
                                                 aria-label="Send message"
                                             >
                                                 <i className="fa-light fa-paper-plane text-[18px]"></i>
                                             </button>
+
                                         </div>
                                     </li>
                                 ))}
@@ -129,6 +145,20 @@ export default function WorkAnniversaries({
             `,
                 }}
             />
+
+            <WishModal
+                show={showWishModal}
+                onClose={() => setShowWishModal(false)}
+                user={wishUser}
+                type="anniversary"
+            />
+
+            <LoginModal
+                show={showLoginModal}
+                onClose={() => setShowLoginModal(false)}
+            />
         </div>
+
     );
 }
+

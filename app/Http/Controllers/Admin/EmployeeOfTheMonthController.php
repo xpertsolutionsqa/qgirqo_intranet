@@ -33,10 +33,16 @@ class EmployeeOfTheMonthController extends Controller
             'year' => 'required|integer|min:2000|max:2100',
             'title' => 'nullable|string|max:255',
             'reason' => 'nullable|string',
+            'featured_image' => 'nullable|image|max:2048',
         ]);
+
+        if ($request->hasFile('featured_image')) {
+            $validated['featured_image'] = $request->file('featured_image')->store('winners', 'public');
+        }
 
         EmployeeOfTheMonth::updateOrCreate(
             [
+                'user_id' => $validated['user_id'],
                 'month' => $validated['month'],
                 'year' => $validated['year'],
             ],

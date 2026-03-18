@@ -9,7 +9,9 @@ class ForumPost extends Model
     protected $fillable = [
         'forum_topic_id',
         'user_id',
-        'content'
+        'content',
+        'media_path',
+        'media_type'
     ];
 
     public function topic()

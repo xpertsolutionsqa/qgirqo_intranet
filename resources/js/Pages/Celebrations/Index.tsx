@@ -5,11 +5,19 @@ import QuickLinks from '@/Components/QuickLinks';
 import { Head } from '@inertiajs/react';
 import CelebrationSidebar from './Partials/CelebrationSidebar';
 import CelebrationList from './Partials/CelebrationList';
+import WishModal from '@/Components/WishModal';
+import LoginModal from '@/Components/LoginModal';
+import { usePage } from '@inertiajs/react';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
 export default function Index({ birthdays, anniversaries, filters, months }: any) {
+    const { auth } = usePage().props as any;
     const [activeTab, setActiveTab] = useState<'birthdays' | 'anniversaries'>('birthdays');
+    const [showWishModal, setShowWishModal] = useState(false);
+    const [showLoginModal, setShowLoginModal] = useState(false);
+    const [selectedUser, setSelectedUser] = useState<any>(null);
+    const [wishType, setWishType] = useState<'birthday' | 'anniversary'>('birthday');
 
     useEffect(() => {
         AOS.init({
@@ -20,6 +28,16 @@ export default function Index({ birthdays, anniversaries, filters, months }: any
 
     const selectedMonthName = months.find((m: any) => m.id === filters.month)?.name || '';
     const page_title = `${selectedMonthName} Celebrations`;
+
+    const handleWish = (user: any, type: 'birthday' | 'anniversary') => {
+        if (!auth.user) {
+            setShowLoginModal(true);
+            return;
+        }
+        setSelectedUser(user);
+        setWishType(type);
+        setShowWishModal(true);
+    };
 
     return (
         <div className="flex min-h-screen flex-col bg-white font-sans text-black">
@@ -69,9 +87,9 @@ export default function Index({ birthdays, anniversaries, filters, months }: any
 
                             <div data-aos="fade-up" data-aos-delay="100">
                                 {activeTab === 'birthdays' ? (
-                                    <CelebrationList items={birthdays.data} type="birthday" />
+                                    <CelebrationList items={birthdays.data} type="birthday" onWish={handleWish} />
                                 ) : (
-                                    <CelebrationList items={anniversaries.data} type="anniversary" />
+                                    <CelebrationList items={anniversaries.data} type="anniversary" onWish={handleWish} />
                                 )}
                             </div>
                         </div>
@@ -87,6 +105,18 @@ export default function Index({ birthdays, anniversaries, filters, months }: any
             </main>
 
             <PublicFooter />
+
+            <WishModal
+                show={showWishModal}
+                onClose={() => setShowWishModal(false)}
+                user={selectedUser}
+                type={wishType}
+            />
+
+            <LoginModal
+                show={showLoginModal}
+                onClose={() => setShowLoginModal(false)}
+            />
         </div>
     );
 }

@@ -5,15 +5,27 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 // Import Swiper styles
 import { User } from '@/interfaces/EmployeeProfile';
 import dayjs from 'dayjs';
+import { useState } from 'react';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
+import WishModal from '@/Components/WishModal';
+import LoginModal from '@/Components/LoginModal';
+import { usePage } from '@inertiajs/react';
+
+
 
 export default function UpcomingBirthdays({
     birthdays,
 }: {
     birthdays: User[];
 }) {
+    const { auth } = usePage<any>().props;
+    const [wishUser, setWishUser] = useState<User | null>(null);
+    const [showWishModal, setShowWishModal] = useState(false);
+    const [showLoginModal, setShowLoginModal] = useState(false);
+
+
     const chunks = [];
     for (let i = 0; i < birthdays.length; i += 4) {
         chunks.push(birthdays.slice(i, i + 4));
@@ -60,27 +72,27 @@ export default function UpcomingBirthdays({
                                                 )}
                                             </span>
                                         </div>
-                                        <div className="border-qa-border h-[42px] w-[42px] overflow-hidden rounded-full border bg-gray-200">
-                                            <img
-                                                src={`/storage/${item.profile.avatar}`}
-                                                alt={item.name}
-                                                onError={(e) => {
-                                                    e.currentTarget.src = `https://placehold.co/42x42?text=${item.name.charAt(0)}`;
-                                                }}
-                                                className="h-full w-full object-cover"
-                                            />
-                                        </div>
+                                        <EmployeeAvatar item={item} />
                                         <div className="text-[14px] font-medium text-black">
                                             {item.name}
                                         </div>
                                         <div className="flex justify-end">
                                             <button
+                                                onClick={() => {
+                                                    if (!auth.user) {
+                                                        setShowLoginModal(true);
+                                                        return;
+                                                    }
+                                                    setWishUser(item);
+                                                    setShowWishModal(true);
+                                                }}
                                                 className="text-primary transition-colors hover:text-black"
                                                 aria-label="Send message"
                                             >
                                                 <i className="fa-light fa-paper-plane text-[18px]"></i>
                                             </button>
                                         </div>
+
                                     </li>
                                 ))}
                             </ul>
@@ -127,6 +139,38 @@ export default function UpcomingBirthdays({
                 }
             `,
                 }}
+            />
+
+            <WishModal
+                show={showWishModal}
+                onClose={() => setShowWishModal(false)}
+                user={wishUser}
+                type="birthday"
+            />
+
+            <LoginModal
+                show={showLoginModal}
+                onClose={() => setShowLoginModal(false)}
+            />
+        </div>
+
+    );
+}
+
+function EmployeeAvatar({ item }: { item: User }) {
+    const [hasError, setHasError] = useState(false);
+
+    if (hasError || !item.profile.avatar) {
+        return <div className="h-[42px] w-[42px]" />; // Empty space to maintain alignment
+    }
+
+    return (
+        <div className="border-qa-border h-[42px] w-[42px] overflow-hidden rounded-full border bg-gray-200">
+            <img
+                src={`/storage/${item.profile.avatar}`}
+                alt={item.name}
+                className="h-full w-full object-cover"
+                onError={() => setHasError(true)}
             />
         </div>
     );

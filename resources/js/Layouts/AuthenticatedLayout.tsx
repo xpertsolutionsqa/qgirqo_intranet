@@ -8,7 +8,8 @@ export default function Authenticated({
     header,
     children,
 }: PropsWithChildren<{ header?: ReactNode }>) {
-    const user = usePage().props.auth.user;
+    const user = usePage().props.auth.user as any;
+    const role = usePage().props.auth.role as string;
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
     return (
@@ -220,7 +221,7 @@ export default function Authenticated({
                                         d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"
                                     />
                                 </svg>
-                                <span>Employee of the Month</span>
+                                <span>Employee of the Quarter</span>
                             </div>
                         </SidebarLink>
 
@@ -364,6 +365,30 @@ export default function Authenticated({
                                 <span>Site Settings</span>
                             </div>
                         </SidebarLink>
+
+                        {role === 'admin' && (
+                            <SidebarLink
+                                href={route('admin.users.index')}
+                                active={route().current('admin.users.*')}
+                            >
+                                <div className="flex items-center space-x-3">
+                                    <svg
+                                        className="h-5 w-5"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        viewBox="0 0 24 24"
+                                    >
+                                        <path
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            strokeWidth="2"
+                                            d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"
+                                        />
+                                    </svg>
+                                    <span>Manage Users</span>
+                                </div>
+                            </SidebarLink>
+                        )}
                     </nav>
 
                     {/* User Profile Footer */}

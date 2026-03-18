@@ -24,18 +24,22 @@ trait EmployeeScopes
             ->whereDay('joining_date', Carbon::today()->day);
     }
 
-    /**
-     * Scope: Upcoming Birthdays in next X days
-     */
     public function scopeUpcomingBirthdays($query, $days = 7)
     {
         $today = Carbon::today();
         $end = Carbon::today()->addDays($days);
 
-        return $query->whereRaw("DATE_FORMAT(dob, '%m-%d') BETWEEN ? AND ?", [
-            $today->format('m-d'),
-            $end->format('m-d')
-        ]);
+        $m1 = $today->format('m-d');
+        $m2 = $end->format('m-d');
+
+        if ($m1 <= $m2) {
+            return $query->whereRaw("DATE_FORMAT(dob, '%m-%d') BETWEEN ? AND ?", [$m1, $m2]);
+        }
+
+        return $query->where(function ($q) use ($m1, $m2) {
+            $q->whereRaw("DATE_FORMAT(dob, '%m-%d') >= ?", [$m1])
+                ->orWhereRaw("DATE_FORMAT(dob, '%m-%d') <= ?", [$m2]);
+        });
     }
 
     /**
@@ -46,9 +50,16 @@ trait EmployeeScopes
         $today = Carbon::today();
         $end = Carbon::today()->addDays($days);
 
-        return $query->whereRaw("DATE_FORMAT(joining_date, '%m-%d') BETWEEN ? AND ?", [
-            $today->format('m-d'),
-            $end->format('m-d')
-        ]);
+        $m1 = $today->format('m-d');
+        $m2 = $end->format('m-d');
+
+        if ($m1 <= $m2) {
+            return $query->whereRaw("DATE_FORMAT(joining_date, '%m-%d') BETWEEN ? AND ?", [$m1, $m2]);
+        }
+
+        return $query->where(function ($q) use ($m1, $m2) {
+            $q->whereRaw("DATE_FORMAT(joining_date, '%m-%d') >= ?", [$m1])
+                ->orWhereRaw("DATE_FORMAT(joining_date, '%m-%d') <= ?", [$m2]);
+        });
     }
 }

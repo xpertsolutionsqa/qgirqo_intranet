@@ -6,6 +6,7 @@ import GCEOMessage from '@/Components/GCEOMessage';
 import HealthWellnessHub from '@/Components/HealthWellnessHub';
 import HumansOfQgirco from '@/Components/HumansOfQgirco';
 import NewsSlider from '@/Components/NewsSlider';
+import ChallengeWidget from '@/Components/ChallengeWidget';
 import PollWidget from '@/Components/PollWidget';
 import PublicFooter from '@/Components/PublicFooter';
 import PublicHeader from '@/Components/PublicHeader';
@@ -31,6 +32,7 @@ export default function Welcome({
     health_articles,
     humans_wall,
     welcome_slogan,
+    challenge,
 }: any) {
     return (
         <div className="flex min-h-screen flex-col bg-white font-sans text-black">
@@ -38,7 +40,7 @@ export default function Welcome({
 
             <PublicHeader />
 
-            <main className="bg-qa-bg">
+            <main className="bg-white">
                 <div className="mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-8">
                     {/* Welcome Slogan */}
                     <div className="py-[2.4rem]">
@@ -79,23 +81,20 @@ export default function Welcome({
 
                             {/* ROW 3: Humans of QGIRCO, Employee of Month, Offers */}
                             <div className="mb-12 grid grid-cols-1 gap-6 lg:grid-cols-3">
-                                <div>
-                                    <HumansOfQgirco featured={humans_wall} />
-                                </div>
-                                <div>
-                                    <EmployeesOfMonth winners={emp_of_the_month} />
-                                </div>
-                                <div>
-                                    <EmployeeOffers offers={promotions} />
-                                </div>
+                                <HumansOfQgirco featured={humans_wall} />
+                                <EmployeesOfMonth winners={emp_of_the_month} />
+                                <EmployeeOffers offers={promotions} />
                             </div>
 
                             {/* ROW 4: Health & Wellness, Digital Voices */}
                             <div className="mb-12 grid grid-cols-1 gap-6 lg:grid-cols-12">
-                                <div className="lg:col-span-8">
-                                    <HealthWellnessHub articles={health_articles} />
+                                <div className="lg:col-span-6">
+                                    <HealthWellnessHub
+                                        articles={health_articles}
+                                        challenge={challenge}
+                                    />
                                 </div>
-                                <div className="lg:col-span-4">
+                                <div className="lg:col-span-6">
                                     <DigitalVoicesForum topics={digital_voices} />
                                 </div>
                             </div>
@@ -108,7 +107,7 @@ export default function Welcome({
                                 <div className="lg:col-span-8">
                                     <DiscussionForum topics={discussion_topics} />
                                 </div>
-                                <div className="lg:col-span-4">
+                                <div className="lg:col-span-4 space-y-6">
                                     <PollWidget polls={polls} />
                                 </div>
                             </div>

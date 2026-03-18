@@ -9,6 +9,7 @@ class AlbumPhoto extends Model
     protected $fillable = [
         'album_id',
         'file_path',
+        'type',
         'caption',
     ];
 

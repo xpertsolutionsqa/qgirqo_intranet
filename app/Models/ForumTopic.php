@@ -33,6 +33,11 @@ class ForumTopic extends Model
         return $this->hasMany(ForumPost::class);
     }
 
+    public function likes()
+    {
+        return $this->hasMany(ForumTopicLike::class);
+    }
+
     public function getRouteKeyName()
     {
         return 'slug';

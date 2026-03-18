@@ -5,6 +5,10 @@ namespace App\Providers;
 use Illuminate\Support\Facades\Vite;
 use Illuminate\Support\ServiceProvider;
 
+use Illuminate\Support\Facades\Event;
+use SocialiteProviders\Manager\SocialiteWasCalled;
+use SocialiteProviders\Azure\AzureExtendSocialite;
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -21,5 +25,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Vite::prefetch(concurrency: 3);
+        Event::listen(SocialiteWasCalled::class, AzureExtendSocialite::class);
     }
 }

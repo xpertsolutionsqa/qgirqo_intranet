@@ -5,7 +5,7 @@ import PrimaryButton from '@/Components/PrimaryButton';
 import SecondaryButton from '@/Components/SecondaryButton';
 import TextInput from '@/Components/TextInput';
 import { useForm } from '@inertiajs/react';
-import { FormEventHandler } from 'react';
+import { useState, FormEventHandler } from 'react';
 
 interface Props {
     show: boolean;
@@ -17,13 +17,23 @@ export default function AddWinnerModal({ show, onClose, employees }: Props) {
     const currentYear = new Date().getFullYear();
     const currentMonth = new Date().getMonth() + 1;
 
-    const { data, setData, post, processing, errors, reset } = useForm({
+    const { data, setData, post, processing, errors, reset, clearErrors } = useForm<{
+        user_id: string;
+        month: number;
+        year: number;
+        title: string;
+        reason: string;
+        featured_image: File | null;
+    }>({
         user_id: '',
         month: currentMonth,
         year: currentYear,
         title: 'Star Performer',
         reason: '',
+        featured_image: null,
     });
+
+    const [preview, setPreview] = useState<string | null>(null);
 
     const years = Array.from({ length: 5 }, (_, i) => currentYear - 2 + i);
     const months = [
@@ -46,13 +56,33 @@ export default function AddWinnerModal({ show, onClose, employees }: Props) {
         post(route('employee-of-the-month.store'), {
             onSuccess: () => {
                 reset();
+                setPreview(null);
                 onClose();
             },
         });
     };
 
+    const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (file) {
+            setData('featured_image', file);
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setPreview(reader.result as string);
+            };
+            reader.readAsDataURL(file);
+        }
+    };
+
+    const handleClose = () => {
+        reset();
+        clearErrors();
+        setPreview(null);
+        onClose();
+    };
+
     return (
-        <Modal show={show} onClose={onClose}>
+        <Modal show={show} onClose={handleClose}>
             <form onSubmit={submit} className="p-6">
                 <h2 className="text-lg font-medium text-gray-900 dark:text-gray-100">
                     Select Employee of the Month
@@ -140,8 +170,35 @@ export default function AddWinnerModal({ show, onClose, employees }: Props) {
                     <InputError message={errors.reason} className="mt-2" />
                 </div>
 
+                <div className="mt-4">
+                    <InputLabel htmlFor="featured_image" value="Featured Image (Optional)" />
+                    <input
+                        id="featured_image"
+                        type="file"
+                        className="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100"
+                        onChange={handleImageChange}
+                        accept="image/*"
+                    />
+                    {preview && (
+                        <div className="mt-2">
+                            <img src={preview} alt="Preview" className="h-32 w-48 object-cover rounded-lg border dark:border-gray-700" />
+                            <button
+                                type="button"
+                                onClick={() => {
+                                    setPreview(null);
+                                    setData('featured_image', null);
+                                }}
+                                className="mt-1 text-xs text-red-600 hover:text-red-800"
+                            >
+                                Remove Image
+                            </button>
+                        </div>
+                    )}
+                    <InputError message={errors.featured_image} className="mt-2" />
+                </div>
+
                 <div className="mt-6 flex justify-end">
-                    <SecondaryButton onClick={onClose}>Cancel</SecondaryButton>
+                    <SecondaryButton onClick={handleClose}>Cancel</SecondaryButton>
                     <PrimaryButton className="ms-3" disabled={processing}>
                         Save Winner
                     </PrimaryButton>

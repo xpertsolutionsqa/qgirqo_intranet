@@ -14,7 +14,7 @@ export default function CreatePhotoModal({
     onClose: () => void;
 }) {
     const { data, setData, post, processing, errors, reset } = useForm({
-        image: null as File | null,
+        file: null as File | null,
         caption: '',
     });
 
@@ -33,24 +33,24 @@ export default function CreatePhotoModal({
         <Modal show={show} onClose={onClose}>
             <form onSubmit={submit} className="p-6">
                 <h2 className="text-lg font-medium text-gray-900 dark:text-gray-100">
-                    Upload Photo
+                    Upload Media
                 </h2>
 
                 <div className="mt-6">
-                    <InputLabel htmlFor="image" value="Photo" />
+                    <InputLabel htmlFor="file" value="Photo or Video" />
 
                     <input
-                        id="image"
+                        id="file"
                         type="file"
-                        accept="image/*"
-                        className="mt-1 block w-full"
+                        accept="image/*,video/*"
+                        className="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:rounded-full file:border-0 file:bg-primary file:px-4 file:py-2 file:text-sm file:font-semibold file:text-white hover:file:bg-black"
                         onChange={(e) =>
-                            setData('image', e.target.files?.[0] || null)
+                            setData('file', e.target.files?.[0] || null)
                         }
                         required
                     />
 
-                    <InputError message={errors.image} className="mt-2" />
+                    <InputError message={errors.file} className="mt-2" />
                 </div>
 
                 <div className="mt-6">

@@ -17,6 +17,7 @@ interface Winner {
     year: number;
     title: string;
     reason: string;
+    featured_image?: string;
 }
 
 interface Props {
@@ -70,6 +71,9 @@ export default function Index({ winners, employees }: Props) {
                                                 Period
                                             </th>
                                             <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
+                                                Featured Image
+                                            </th>
+                                            <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
                                                 Title
                                             </th>
                                             <th className="px-6 py-3 text-right text-xs font-medium uppercase tracking-wider text-gray-500">
@@ -101,6 +105,17 @@ export default function Index({ winners, employees }: Props) {
                                                         <div className="text-sm text-gray-900 dark:text-gray-100">
                                                             {monthNames[winner.month - 1]} {winner.year}
                                                         </div>
+                                                    </td>
+                                                    <td className="px-6 py-4 whitespace-nowrap">
+                                                        {winner.featured_image ? (
+                                                            <img
+                                                                src={`/storage/${winner.featured_image}`}
+                                                                alt="Winner"
+                                                                className="h-10 w-16 object-cover rounded shadow-sm"
+                                                            />
+                                                        ) : (
+                                                            <span className="text-xs text-gray-400 italic">No image</span>
+                                                        )}
                                                     </td>
                                                     <td className="px-6 py-4 whitespace-nowrap">
                                                         <div className="text-sm text-gray-500 dark:text-gray-400">

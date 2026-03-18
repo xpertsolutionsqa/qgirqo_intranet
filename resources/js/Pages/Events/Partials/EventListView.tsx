@@ -3,14 +3,15 @@ import EventCard from './EventCard';
 
 interface Props {
     events: any[];
+    onAddCalendar: (event: any) => void;
 }
 
-export default function EventListView({ events = [] }: Props) {
+export default function EventListView({ events = [], onAddCalendar }: Props) {
     return (
         <div className="flex flex-wrap -mx-3">
             {events.length > 0 ? (
                 events.map((event) => (
-                    <EventCard key={event.id} event={event} />
+                    <EventCard key={event.id} event={event} onAddCalendar={onAddCalendar} />
                 ))
             ) : (
                 <div className="w-full py-20 text-center">

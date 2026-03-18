@@ -3,9 +3,10 @@ import dayjs from 'dayjs';
 
 interface Props {
     events: any[];
+    onAddCalendar: (event: any) => void;
 }
 
-export default function EventCalendarView({ events = [] }: Props) {
+export default function EventCalendarView({ events = [], onAddCalendar }: Props) {
     const [currentMonth, setCurrentMonth] = useState(dayjs());
 
     const startOfMonth = currentMonth.startOf('month');
@@ -77,8 +78,17 @@ export default function EventCalendarView({ events = [] }: Props) {
                                     <div className="space-y-1">
                                         {dayEvents.map(event => (
                                             <div key={event.id} className="group relative cursor-pointer">
-                                                <div className="bg-primary/10 hover:bg-primary/20 p-1.5 rounded-md text-[10px] font-bold text-primary truncate transition-colors">
-                                                    {event.title}
+                                                <div className="bg-primary/10 hover:bg-primary/20 p-1.5 rounded-md text-[10px] font-bold text-primary truncate transition-colors flex items-center justify-between gap-1">
+                                                    <span className="truncate">{event.title}</span>
+                                                    <button
+                                                        onClick={(e) => {
+                                                            e.stopPropagation();
+                                                            onAddCalendar(event);
+                                                        }}
+                                                        className="shrink-0 text-primary/40 hover:text-primary transition-colors"
+                                                    >
+                                                        <i className="fa-solid fa-calendar-plus text-[10px]"></i>
+                                                    </button>
                                                 </div>
                                                 {/* Tooltip or Popover logic could go here */}
                                             </div>

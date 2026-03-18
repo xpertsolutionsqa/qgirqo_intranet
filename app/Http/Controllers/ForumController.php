@@ -69,14 +69,64 @@ class ForumController extends Controller
     {
         $validated = $request->validate([
             'content' => 'required|string',
+            'media' => 'nullable|file|mimes:jpeg,png,jpg,gif,mp4,mov,avi|max:20480', // 20MB max
         ]);
+
+        $mediaPath = null;
+        $mediaType = null;
+
+        if ($request->hasFile('media')) {
+            $file = $request->file('media');
+            $mediaPath = $file->store('forum_media', 'public');
+            $mediaType = str_starts_with($file->getMimeType(), 'video/') ? 'video' : 'image';
+        }
 
         $topic->replies()->create([
             'user_id' => auth()->id(),
             'content' => $validated['content'],
+            'media_path' => $mediaPath,
+            'media_type' => $mediaType,
         ]);
 
         return back()->with('success', 'Reply posted successfully');
+    }
+
+    public function toggleLike(ForumTopic $topic)
+    {
+        $like = \App\Models\ForumTopicLike::where('user_id', auth()->id())
+            ->where('forum_topic_id', $topic->id)
+            ->first();
+
+        if ($like) {
+            $like->delete();
+        } else {
+            \App\Models\ForumTopicLike::create([
+                'user_id' => auth()->id(),
+                'forum_topic_id' => $topic->id,
+            ]);
+        }
+
+        return back();
+    }
+
+    public function incrementView(ForumTopic $topic)
+    {
+        if (auth()->check()) {
+            $viewExists = \App\Models\ForumTopicView::where('user_id', auth()->id())
+                ->where('forum_topic_id', $topic->id)
+                ->exists();
+
+            if (!$viewExists) {
+                \App\Models\ForumTopicView::create([
+                    'user_id' => auth()->id(),
+                    'forum_topic_id' => $topic->id,
+                ]);
+
+                $topic->increment('view_count');
+            }
+        }
+
+        return back();
     }
 
     public function destroy(ForumTopic $topic)
