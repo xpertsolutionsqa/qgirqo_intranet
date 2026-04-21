@@ -10,6 +10,7 @@ class EmployeeOfTheMonth extends Model
         'user_id',
         'month',
         'year',
+        'quarter',
         'title',
         'reason',
         'featured_image',

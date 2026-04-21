@@ -25,7 +25,9 @@ Route::middleware('guest')->group(function () {
     Route::get('auth/azure', [\App\Http\Controllers\Api\AuthController::class, 'azureRedirect'])
         ->name('azure.login');
 
-    Route::get('auth/callback', [\App\Http\Controllers\Api\AuthController::class, 'azureCallback'])
+    //  Route::get('auth/callback', [\App\Http\Controllers\Api\AuthController::class, 'azureCallback'])
+    // ->name('azure.callback');
+    Route::match(['get', 'post'], 'auth/callback', [\App\Http\Controllers\Api\AuthController::class, 'azureCallback'])
         ->name('azure.callback');
 
     Route::get('forgot-password', [PasswordResetLinkController::class, 'create'])

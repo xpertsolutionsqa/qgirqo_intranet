@@ -31,6 +31,7 @@ class EmployeeOfTheMonthController extends Controller
             'user_id' => 'required|exists:users,id',
             'month' => 'required|integer|min:1|max:12',
             'year' => 'required|integer|min:2000|max:2100',
+            'quarter' => 'nullable|string|max:10',
             'title' => 'nullable|string|max:255',
             'reason' => 'nullable|string',
             'featured_image' => 'nullable|image|max:2048',

@@ -68,66 +68,76 @@ export default function UpcomingEvents({
             </div>
 
             <div className="grow px-[0px]">
-                <Swiper
-                    modules={[Navigation, Pagination]}
-                    navigation={{
-                        prevEl: '.ev-prev',
-                        nextEl: '.ev-next',
-                    }}
-                    pagination={{
-                        el: '.ev-pagination',
-                        clickable: true,
-                    }}
-                    className="h-full"
-                >
-                    {chunks.map((chunk, idx) => (
-                        <SwiperSlide key={idx}>
-                            <div className="space-y-4 py-2">
-                                {chunk.map((event) => (
-                                    <div
-                                        key={event.id}
-                                        className="border-qa-border group relative rounded-[2px] border bg-white "
-                                    >
-                                        <div className="flex items-stretch gap-4">
-                                            <div className="text-primary flex shrink-0 flex-col justify-center rounded-l-[2px] bg-primary/10 px-4 py-4 text-center font-bold leading-[1.1] transition-all duration-300 group-hover:bg-primary group-hover:text-white">
-                                                <span className="block text-3xl">
-                                                    {dayjs(event.event_date).format('DD')}
-                                                </span>
-                                                <small className="block text-[10px] uppercase opacity-70">
-                                                    {dayjs(event.event_date).format('MMMM')}
-                                                </small>
-                                            </div>
-                                            <div className="grow py-4">
-                                                <div className="hover:text-primary mb-1 cursor-pointer text-[14px] font-bold text-black transition-colors line-clamp-1 group-hover:font-extrabold">
-                                                    {event.title}
+                {events.length > 0 ? (
+                    <Swiper
+                        modules={[Navigation, Pagination]}
+                        navigation={{
+                            prevEl: '.ev-prev',
+                            nextEl: '.ev-next',
+                        }}
+                        pagination={{
+                            el: '.ev-pagination',
+                            clickable: true,
+                        }}
+                        className="h-full"
+                    >
+                        {chunks.map((chunk, idx) => (
+                            <SwiperSlide key={idx}>
+                                <div className="space-y-4 py-2 px-4">
+                                    {chunk.map((event) => (
+                                        <div
+                                            key={event.id}
+                                            className="border-qa-border group relative rounded-[2px] border bg-white "
+                                        >
+                                            <div className="flex items-stretch gap-4">
+                                                <div className="text-primary flex shrink-0 flex-col justify-center rounded-l-[2px] bg-primary/10 px-4 py-4 text-center font-bold leading-[1.1] transition-all duration-300 group-hover:bg-primary group-hover:text-white">
+                                                    <span className="block text-3xl">
+                                                        {dayjs(event.event_date).format('DD')}
+                                                    </span>
+                                                    <small className="block text-[10px] uppercase opacity-70">
+                                                        {dayjs(event.event_date).format('MMMM')}
+                                                    </small>
                                                 </div>
-                                                <div className="text-qa-muted flex flex-col gap-0.5 text-[11px]">
-                                                    <div className="flex items-center gap-1.5">
-                                                        <i className="fa-regular fa-clock me-1 text-[12px]"></i>
-                                                        {event.event_time ? dayjs(event.event_time).format('h:mm A') : '09:00 AM'}
-                                                        -{' '}
-                                                        {event.event_end_time ? dayjs(event.event_end_time).format('h:mm A') : '05:00 PM'}
+                                                <div className="grow py-4">
+                                                    <div className="hover:text-primary mb-1 cursor-pointer text-[14px] font-bold text-black transition-colors line-clamp-1 group-hover:font-extrabold">
+                                                        {event.title}
                                                     </div>
-                                                    <div className="flex items-center gap-1.5">
-                                                        <i className="fa-regular fa-location-dot me-1 text-[12px]"></i>
-                                                        <span className="line-clamp-1">{event.event_venue}</span>
+                                                    <div className="text-qa-muted flex flex-col gap-0.5 text-[11px]">
+                                                        <div className="flex items-center gap-1.5">
+                                                            <i className="fa-regular fa-clock me-1 text-[12px]"></i>
+                                                            {event.event_time ? dayjs(event.event_time).format('h:mm A') : '09:00 AM'}
+                                                            -{' '}
+                                                            {event.event_end_time ? dayjs(event.event_end_time).format('h:mm A') : '05:00 PM'}
+                                                        </div>
+                                                        <div className="flex items-center gap-1.5">
+                                                            <i className="fa-regular fa-location-dot me-1 text-[12px]"></i>
+                                                            <span className="line-clamp-1">{event.event_venue}</span>
+                                                        </div>
                                                     </div>
                                                 </div>
+                                                <button
+                                                    className="text-primary/40 hover:text-primary transition-colors pr-4"
+                                                    title="Add to calendar"
+                                                    onClick={() => downloadIcsFile(event)}
+                                                >
+                                                    <i className="fa-duotone fa-solid fa-calendar-plus text-[20px]"></i>
+                                                </button>
                                             </div>
-                                            <button
-                                                className="text-primary/40 hover:text-primary transition-colors pr-4"
-                                                title="Add to calendar"
-                                                onClick={() => downloadIcsFile(event)}
-                                            >
-                                                <i className="fa-duotone fa-solid fa-calendar-plus text-[20px]"></i>
-                                            </button>
                                         </div>
-                                    </div>
-                                ))}
-                            </div>
-                        </SwiperSlide>
-                    ))}
-                </Swiper>
+                                    ))}
+                                </div>
+                            </SwiperSlide>
+                        ))}
+                    </Swiper>
+                ) : (
+                    <div className="flex flex-col items-center justify-center py-10 text-center opacity-60">
+                        <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary/5">
+                            <i className="fa-light fa-calendar-xmark text-primary text-[32px]"></i>
+                        </div>
+                        <h4 className="m-0 text-[16px] font-semibold text-black">No Upcoming Events</h4>
+                        <p className="mt-1 text-[12px]">Stay tuned for future events!</p>
+                    </div>
+                )}
             </div>
 
             <div className="relative flex h-[52px] items-center justify-center gap-[10px] p-[10px_26px]">

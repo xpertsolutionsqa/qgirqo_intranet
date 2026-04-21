@@ -1,6 +1,6 @@
 import { usePage } from '@inertiajs/react';
 import { useState } from 'react';
-import { Navigation, Pagination } from 'swiper/modules';
+import { Autoplay, Navigation, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import WishModal from './WishModal';
 
@@ -54,77 +54,138 @@ export default function EmployeesOfMonth({
     };
 
     return (
-        <div className="qg_card rounded-qa shadow-qa flex h-full flex-col overflow-hidden bg-[#e5e5f9]">
-            <div className="bg-primary p-[16px_24px] text-center">
-                <h3 className="m-0 text-2xl font-bold text-white">
-                    Employees of the Quarter
-                </h3>
-            </div>
-
-            <div className="flex-grow p-0">
-                <Swiper
-                    modules={[Navigation, Pagination]}
-                    navigation={{
-                        prevEl: '.emp-prev',
-                        nextEl: '.emp-next',
-                    }}
-                    pagination={{
-                        el: '.emp-pagination',
-                        clickable: true,
-                    }}
-                    className="h-full"
-                >
-                    {employees.map((winner) => (
-                        <SwiperSlide key={winner.id} className="!h-full">
-                            <div className="flex h-full flex-col items-center bg-white">
-                                <div className="p-3 shrink-0 h-[250px] flex items-center justify-center">
-                                    <div className="rounded-qa border-qa-border h-[140px] w-[140px] overflow-hidden border">
-                                        <img
-                                            src={winner.featured_image ? `/storage/${winner.featured_image}` : (winner.user.profile?.avatar ? `/storage/${winner.user.profile.avatar}` : (winner.user.profile?.image || 'https://images.unsplash.com/photo-1556157382-97eda2d62296?q=80&w=600&auto=format&fit=crop'))}
-                                            alt={winner.user.name}
-                                            className="h-full w-full object-cover"
-                                        />
+        <>
+            <div className="flex h-full flex-col overflow-hidden ">
+                {/* New Design (Commented) */}
+                {/* <div className="qg_card group rounded-qa border border-gray-100 shadow-sm transition-all duration-300 hover:shadow-md flex h-full flex-col overflow-hidden bg-gradient-to-br from-white to-gray-50">
+                    <div className="bg-primary p-[16px_24px] text-center">
+                        <h3 className="m-0 text-xl font-bold text-white uppercase tracking-wider">
+                            Employees of the Quarter
+                        </h3>
+                    </div>
+                    <div className="flex-grow p-0">
+                        <Swiper
+                            modules={[Navigation, Pagination, Autoplay]}
+                            autoplay={{ delay: 4000, disableOnInteraction: false }}
+                            loop={employees.length > 1}
+                            navigation={{ prevEl: '.emp-prev', nextEl: '.emp-next' }}
+                            pagination={{ el: '.emp-pagination', clickable: true }}
+                            className="h-full"
+                        >
+                            {employees.map((winner) => (
+                                <SwiperSlide key={winner.id} className="!h-full">
+                                    <div className="flex h-full flex-col bg-transparent">
+                                        <div className="relative h-[240px] overflow-hidden">
+                                            <img
+                                                src={winner.featured_image ? `/storage/${winner.featured_image}` : (winner.user.profile?.avatar ? `/storage/${winner.user.profile.avatar}` : (winner.user.profile?.image || 'https://images.unsplash.com/photo-1556157382-97eda2d62296?q=80&w=600&auto=format&fit=crop'))}
+                                                alt={winner.user.name}
+                                                className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                                            />
+                                            <div className="absolute inset-0 bg-black/0 transition-colors duration-300 group-hover:bg-black/10" />
+                                        </div>
+                                        <div className="flex grow flex-col items-center justify-center p-5 text-center space-y-2">
+                                            <div>
+                                                <div className="text-[18px] font-bold text-black line-clamp-1 uppercase tracking-tight">{winner.user.name}</div>
+                                                <div className="text-qa-muted text-[13px] line-clamp-1 font-medium">{winner.user.profile?.designation?.name || 'Position'}</div>
+                                            </div>
+                                            {winner.title && <div className="bg-primary/10 text-primary rounded-full px-4 py-1 text-[11px] font-bold uppercase tracking-widest">{winner.title}</div>}
+                                            <div className="pt-2">
+                                                {!winner.is_placeholder && (
+                                                    <button onClick={() => handleCongratulate(winner)} className="bg-primary hover:bg-black text-white px-8 py-2 rounded-full text-[12px] font-bold transition-all duration-300 transform group-hover:scale-105 shadow-sm">Congratulate</button>
+                                                )}
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                                <div className="flex grow flex-col items-center justify-center bg-qa-gray p-4 w-full text-center">
-                                    <div className="mb-0.5 text-[16px] font-bold text-black line-clamp-1">
-                                        {winner.user.name}
-                                    </div>
-                                    <div className="text-qa-muted mb-3 text-[12px] line-clamp-1">
-                                        {winner.user.profile?.designation?.name || 'Position'}
-                                    </div>
-                                    <div className="">
-                                        {!winner.is_placeholder && (
-                                            <button
-                                                onClick={() => handleCongratulate(winner)}
-                                                className="bg-primary mx-auto w-max rounded-full px-6 py-1.5 text-[12px] font-bold text-white transition-colors hover:bg-black"
-                                            >
-                                                Congratulate
-                                            </button>
-                                        )}
-                                    </div>
-                                </div>
+                                </SwiperSlide>
+                            ))}
+                        </Swiper>
+                    </div>
+                    <div className="flex h-[52px] items-center justify-center gap-[10px] border-t border-gray-100 bg-gray-50/50">
+                        {employees.length > 1 && (
+                            <div className="flex items-center gap-[2px]">
+                                <button className="emp-prev flex h-[34px] w-[34px] cursor-pointer items-center justify-center rounded-[10px] border-none bg-transparent text-black hover:bg-black/5 disabled:cursor-auto disabled:opacity-30"><i className="fa-light fa-chevron-left text-[14px]"></i></button>
+                                <div className="emp-pagination flex !w-auto items-center pb-1" />
+                                <button className="emp-next flex h-[34px] w-[34px] cursor-pointer items-center justify-center rounded-[10px] border-none bg-transparent text-black hover:bg-black/5 disabled:cursor-auto disabled:opacity-30"><i className="fa-light fa-chevron-right text-[14px]"></i></button>
                             </div>
-                        </SwiperSlide>
-                    ))}
-                </Swiper>
-            </div>
+                        )}
+                    </div>
+                </div> */}
 
-            {employees.length > 1 ? (
-                <div className="flex h-[40px] items-center justify-center gap-[10px] bg-qa-gray border-t border-black/5">
-                    <div className="flex items-center gap-[2px]">
-                        <button className="emp-prev flex h-[30px] w-[30px] cursor-pointer items-center justify-center rounded-[10px] border-none bg-transparent text-black hover:bg-white/40 disabled:cursor-auto disabled:opacity-30">
-                            <i className="fa-light fa-chevron-left text-[12px]"></i>
-                        </button>
-                        <div className="emp-pagination flex !w-auto items-center pb-1" />
-                        <button className="emp-next flex h-[30px] w-[30px] cursor-pointer items-center justify-center rounded-[10px] border-none bg-transparent text-black hover:bg-white/40 disabled:cursor-auto disabled:opacity-30">
-                            <i className="fa-light fa-chevron-right text-[12px]"></i>
-                        </button>
+                <div className="qg_card rounded-qa shadow-qa flex h-full flex-col overflow-hidden bg-[#e5e5f9]">
+                    <div className="bg-primary p-[16px_24px] text-center">
+                        <h3 className="m-0 text-2xl font-bold text-white">
+                            Employees of the Quarter
+                        </h3>
+                    </div>
+
+                    <div className="flex-grow p-0">
+                        <Swiper
+                            modules={[Navigation, Pagination]}
+                            navigation={{
+                                prevEl: '.emp-prev',
+                                nextEl: '.emp-next',
+                            }}
+                            pagination={{
+                                el: '.emp-pagination',
+                                clickable: true,
+                            }}
+                            className="h-full"
+                        >
+                            {employees.map((winner) => (
+                                <SwiperSlide key={winner.id} className="!h-full">
+                                    <div className="flex h-full flex-col items-center bg-white">
+                                        <div className="p-4 shrink-0 h-[260px] flex items-center justify-center w-full">
+                                            <div className="rounded-qa border-qa-border h-[210px] w-full max-w-[210px] overflow-hidden border-2 shadow-sm">
+                                                <img
+                                                    src={winner.featured_image ? `/storage/${winner.featured_image}` : (winner.user.profile?.avatar ? `/storage/${winner.user.profile.avatar}` : (winner.user.profile?.image || 'https://images.unsplash.com/photo-1556157382-97eda2d62296?q=80&w=600&auto=format&fit=crop'))}
+                                                    alt={winner.user.name}
+                                                    className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
+                                                />
+                                            </div>
+                                        </div>
+
+                                        <div className="flex grow flex-col items-center justify-center bg-qa-gray p-4 w-full text-center">
+                                            <div className="mb-0.5 text-[18px] font-bold text-black line-clamp-1">
+                                                {winner.user.name}
+                                            </div>
+                                            <div className="text-qa-muted mb-1 text-[13px] line-clamp-1">
+                                                {winner.user.profile?.designation?.name || 'Position'}
+                                            </div>
+                                            {winner.title && <div className="bg-primary/5 text-primary mb-4 rounded-full px-3 py-0.5 text-[11px] font-bold uppercase tracking-wider">
+                                                {winner.title}
+                                            </div>}
+                                            <div className="">
+                                                {!winner.is_placeholder && (
+                                                    <button
+                                                        onClick={() => handleCongratulate(winner)}
+                                                        className="bg-primary hover:bg-black mx-auto w-max rounded-full px-8 py-2 text-[13px] font-bold text-white transition-all shadow-md active:scale-95"
+                                                    >
+                                                        Congratulate
+                                                    </button>
+                                                )}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </SwiperSlide>
+                            ))}
+                        </Swiper>
+                    </div>
+
+                    <div className="flex h-[52px] items-center justify-center gap-[10px] bg-qa-gray border-t border-black/5">
+                        {employees.length > 1 && (
+                            <div className="flex items-center gap-[2px]">
+                                <button className="emp-prev flex h-[34px] w-[34px] cursor-pointer items-center justify-center rounded-[10px] border-none bg-transparent text-black hover:bg-white/40 disabled:cursor-auto disabled:opacity-30">
+                                    <i className="fa-light fa-chevron-left text-[14px]"></i>
+                                </button>
+                                <div className="emp-pagination flex !w-auto items-center pb-1" />
+                                <button className="emp-next flex h-[34px] w-[34px] cursor-pointer items-center justify-center rounded-[10px] border-none bg-transparent text-black hover:bg-white/40 disabled:cursor-auto disabled:opacity-30">
+                                    <i className="fa-light fa-chevron-right text-[14px]"></i>
+                                </button>
+                            </div>
+                        )}
                     </div>
                 </div>
-            ) : (
-                <div className="h-[40px] bg-qa-gray border-t border-black/5" />
-            )}
+            </div>
 
             <style
                 dangerouslySetInnerHTML={{
@@ -160,6 +221,6 @@ export default function EmployeesOfMonth({
                 show={showLoginModal}
                 onClose={() => setShowLoginModal(false)}
             />
-        </div>
+        </>
     );
 }

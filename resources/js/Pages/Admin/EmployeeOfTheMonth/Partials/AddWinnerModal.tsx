@@ -16,11 +16,16 @@ interface Props {
 export default function AddWinnerModal({ show, onClose, employees }: Props) {
     const currentYear = new Date().getFullYear();
     const currentMonth = new Date().getMonth() + 1;
+    let currentQuarter = 'Q1';
+    if (currentMonth >= 4 && currentMonth <= 6) currentQuarter = 'Q2';
+    else if (currentMonth >= 7 && currentMonth <= 9) currentQuarter = 'Q3';
+    else if (currentMonth >= 10 && currentMonth <= 12) currentQuarter = 'Q4';
 
     const { data, setData, post, processing, errors, reset, clearErrors } = useForm<{
         user_id: string;
         month: number;
         year: number;
+        quarter: string;
         title: string;
         reason: string;
         featured_image: File | null;
@@ -28,6 +33,7 @@ export default function AddWinnerModal({ show, onClose, employees }: Props) {
         user_id: '',
         month: currentMonth,
         year: currentYear,
+        quarter: currentQuarter,
         title: 'Star Performer',
         reason: '',
         featured_image: null,
@@ -50,6 +56,8 @@ export default function AddWinnerModal({ show, onClose, employees }: Props) {
         { id: 11, name: 'November' },
         { id: 12, name: 'December' },
     ];
+
+    const submissionData = { ...data };
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
@@ -85,7 +93,7 @@ export default function AddWinnerModal({ show, onClose, employees }: Props) {
         <Modal show={show} onClose={handleClose}>
             <form onSubmit={submit} className="p-6">
                 <h2 className="text-lg font-medium text-gray-900 dark:text-gray-100">
-                    Select Employee of the Month
+                    Select Employee of the Quarter
                 </h2>
 
                 <div className="mt-6">
@@ -145,6 +153,43 @@ export default function AddWinnerModal({ show, onClose, employees }: Props) {
                     </div>
                 </div>
 
+                <div className="mt-4 grid grid-cols-2 gap-4">
+                    <div>
+                        <InputLabel htmlFor="reason" value="Select Category" />
+                        <select
+                            id="reason"
+                            className="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm"
+                            value={data.reason}
+                            onChange={(e) => setData('reason', e.target.value)}
+                            required
+                        >
+                            <option value="">Select a category...</option>
+                            <option value="Star Performer">Star Performer</option>
+                            <option value="Outstanding Leadership">Outstanding Leadership</option>
+                            <option value="Excellence in Service">Excellence in Service</option>
+                            <option value="Team Spirit Award">Team Spirit Award</option>
+                        </select>
+                        <InputError message={errors.reason} className="mt-2" />
+                    </div>
+
+                    <div>
+                        <InputLabel htmlFor="quarter" value="Select Quarter" />
+                        <select
+                            id="quarter"
+                            className="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm"
+                            value={data.quarter}
+                            onChange={(e) => setData('quarter', e.target.value)}
+                            required
+                        >
+                            <option value="Q1">Q1 (Jan - Mar)</option>
+                            <option value="Q2">Q2 (Apr - Jun)</option>
+                            <option value="Q3">Q3 (Jul - Sep)</option>
+                            <option value="Q4">Q4 (Oct - Dec)</option>
+                        </select>
+                        <InputError message={errors.quarter} className="mt-2" />
+                    </div>
+                </div>
+
                 <div className="mt-4">
                     <InputLabel htmlFor="title" value="Award Title" />
                     <TextInput
@@ -158,7 +203,7 @@ export default function AddWinnerModal({ show, onClose, employees }: Props) {
                     <InputError message={errors.title} className="mt-2" />
                 </div>
 
-                <div className="mt-4">
+                {/* <div className="mt-4">
                     <InputLabel htmlFor="reason" value="Achievement Reason" />
                     <textarea
                         id="reason"
@@ -168,7 +213,7 @@ export default function AddWinnerModal({ show, onClose, employees }: Props) {
                         rows={3}
                     />
                     <InputError message={errors.reason} className="mt-2" />
-                </div>
+                </div> */}
 
                 <div className="mt-4">
                     <InputLabel htmlFor="featured_image" value="Featured Image (Optional)" />

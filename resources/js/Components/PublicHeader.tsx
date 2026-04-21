@@ -82,7 +82,9 @@ export default function PublicHeader() {
             }
         };
 
-        fetchNotifications();
+        if (auth.user) {
+            fetchNotifications();
+        }
         const timer = setInterval(() => setCurrentTime(new Date()), 1000);
         return () => clearInterval(timer);
     }, []);

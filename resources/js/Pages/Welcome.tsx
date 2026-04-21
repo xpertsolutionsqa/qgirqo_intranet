@@ -63,7 +63,7 @@ export default function Welcome({
                             </div>
 
                             {/* ROW 2: Work Anniv, Events, Birthdays */}
-                            <div className="mb-12 grid grid-cols-1 gap-6 lg:grid-cols-3">
+                            <div className="mb-12 grid grid-cols-1 gap-6 lg:grid-cols-2">
                                 <div>
                                     <WorkAnniversaries
                                         anniversaries={anniversaries.data}
@@ -72,11 +72,11 @@ export default function Welcome({
                                 <div>
                                     <UpcomingEvents events={events} />
                                 </div>
-                                <div>
+                                {/* <div>
                                     <UpcomingBirthdays
                                         birthdays={birthdays.data}
                                     />
-                                </div>
+                                </div> */}
                             </div>
 
                             {/* ROW 3: Humans of QGIRCO, Employee of Month, Offers */}

@@ -54,6 +54,9 @@ Route::middleware(['auth', 'verified', 'is_admin'])->group(function () {
     // Admin Users
     Route::middleware(['role:admin'])->prefix('admin')->name('admin.')->group(function () {
         Route::resource('users', \App\Http\Controllers\Admin\UserController::class)->except(['show', 'edit', 'update']);
+        Route::resource('departments', \App\Http\Controllers\Admin\DepartmentController::class);
+        Route::resource('designations', \App\Http\Controllers\Admin\DesignationController::class);
+        Route::resource('roles', \App\Http\Controllers\Admin\RoleController::class);
     });
 });
 

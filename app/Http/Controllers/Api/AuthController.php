@@ -11,6 +11,9 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Support\Facades\Log;
+use App\Models\Department;
+use App\Models\Designation;
+use App\Models\EmployeeProfile;
 
 class AuthController extends Controller
 {
@@ -66,7 +69,24 @@ class AuthController extends Controller
         $user = User::where('email', $azureUser->email)->first();
 
         if (!$user) {
-            return redirect('/login')->with('error', 'Your account was not found. Please contact an administrator.');
+            $passwordPrefix = explode('@', $azureUser->email)[0];
+
+            $user = User::create([
+                'name' => $azureUser->name ?? $passwordPrefix,
+                'email' => $azureUser->email,
+                'password' => Hash::make($passwordPrefix),
+            ]);
+
+            $user->assignRole('employee');
+
+            // Create profile with first available dept/desig
+            EmployeeProfile::create([
+                'user_id' => $user->id,
+                'employee_id' => 'EMP-' . rand(100000, 999999),
+                'department_id' => Department::first()?->id,
+                'designation_id' => Designation::first()?->id,
+                'joining_date' => now(),
+            ]);
         }
 
         Auth::login($user);

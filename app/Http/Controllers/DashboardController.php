@@ -135,7 +135,7 @@ class DashboardController extends Controller
             // 'laravelVersion' => Application::VERSION,
             'phpVersion' => PHP_VERSION,
             'news' => Post::where('type', 'news')->where('is_published', true)->latest()->take(2)->get(),
-            'events' => Post::where('type', 'event')->where('is_published', true)->latest()->take(6)->get(),
+            'events' => Post::where('type', 'event')->where('is_published', true)->whereDate('event_date', '>=', today())->orderBy('event_date', 'asc')->take(6)->get(),
             'polls' => Poll::latest()->take(1)->with(['options.votes', 'votes', 'creator'])->first(),
             'challenge' => (function () {
                 // Try to find a challenge for today first

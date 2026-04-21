@@ -30,6 +30,55 @@ export default function HumansOfQgirco({ featured }: { featured?: HumansWall | n
 
     return (
         <>
+            {/* New Design (Commented) */}
+            {/* <div className="qg_card group rounded-qa border border-gray-100 shadow-sm transition-all duration-300 hover:shadow-md flex h-full flex-col overflow-hidden bg-gradient-to-br from-white to-gray-50">
+                <div className="bg-primary p-[16px_24px] text-center">
+                    <h3 className="m-0 text-xl font-bold text-white uppercase tracking-wider">
+                        Humans of QGIRCO Wall
+                    </h3>
+                </div>
+                <div className="qg_card_body flex flex-grow flex-col p-0">
+                    <div className="relative h-[240px] overflow-hidden">
+                        <img
+                            src={avatar}
+                            alt={employeeName}
+                            className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                        />
+                        <div className="absolute inset-0 bg-black/0 transition-colors duration-300 group-hover:bg-black/10" />
+                        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-4">
+                            <div className="text-[18px] font-bold uppercase text-white drop-shadow-md">
+                                Meet {employeeName}
+                            </div>
+                        </div>
+                    </div>
+                    <div className="flex flex-grow flex-col justify-between p-5 space-y-4">
+                        <div className="space-y-3">
+                            <p className="text-[15px] text-primary leading-[1.4] font-semibold italic">
+                                “ {featured?.quote || 'Share your story with us.'} ”
+                            </p>
+                            <p className="text-[14px] leading-[1.6] text-gray-700 line-clamp-3">
+                                {featured ? (
+                                    <>{featured?.story}</>
+                                ) : (
+                                    `This month we celebrate ${employeeName} from our ${deptName}.`
+                                )}
+                            </p>
+                        </div>
+                        {featured && featured.story && (
+                            <div>
+                                <button
+                                    onClick={() => setShowFullStory(true)}
+                                    className="bg-primary hover:bg-black text-white px-5 py-2 rounded-full text-[12px] font-bold transition-all duration-300 transform group-hover:translate-x-1"
+                                >
+                                    Read Full Story
+                                </button>
+                            </div>
+                        )}
+                    </div>
+                </div>
+                <div className="flex h-[52px] items-center justify-center border-t border-gray-100 bg-gray-50/50" />
+            </div> */}
+
             <div className="qg_card rounded-qa shadow-qa flex h-full flex-col overflow-hidden bg-[#e5e5f9]">
                 {/* Header with Blue Fill */}
                 <div className="bg-primary p-[16px_24px] text-center">
@@ -39,29 +88,27 @@ export default function HumansOfQgirco({ featured }: { featured?: HumansWall | n
                 </div>
 
                 <div className="qg_card_body flex flex-grow flex-col p-0">
-                    {/* Top Section: Photo + Quote */}
-                    <div className="flex h-[250px] items-center gap-4 p-3 bg-white">
-                        <div className="rounded-qa border-qa-border h-[120px] w-[110px] shrink-0 overflow-hidden border">
+                    <div className="flex h-[260px] items-center gap-5 p-4 bg-white">
+                        <div className="rounded-qa border-qa-border h-[180px] w-[150px] shrink-0 overflow-hidden border-2 shadow-sm">
                             <img
                                 src={avatar}
                                 alt={employeeName}
-                                className="h-full w-full object-cover"
+                                className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
                             />
                         </div>
                         <div className="flex flex-col justify-center overflow-hidden">
-                            <div className="mb-1 text-[16px] font-bold uppercase truncate">
+                            <div className="mb-2 text-[18px] font-bold uppercase truncate text-black">
                                 Meet {employeeName}
                             </div>
-                            <p className="text-[14px] text-primary leading-[1.2] font-medium text-black italic line-clamp-2">
-                                “ {featured?.quote || ''} ”
+                            <p className="text-[15px] text-primary leading-[1.4] font-medium italic line-clamp-3">
+                                “ {featured?.quote || 'Share your story with us.'} ”
                             </p>
                         </div>
                     </div>
 
-                    {/* Bottom Section: Description */}
                     <div className="flex flex-grow flex-col justify-center bg-qa-gray p-4 w-full">
                         <div className="">
-                            <p className="text-[13px] leading-[1.4] text-black line-clamp-2">
+                            <p className="text-[14px] leading-[1.6] text-black line-clamp-2">
                                 {featured ? (
                                     <>{featured?.story}</>
                                 ) : (
@@ -71,17 +118,16 @@ export default function HumansOfQgirco({ featured }: { featured?: HumansWall | n
                             {featured && featured.story && (
                                 <button
                                     onClick={() => setShowFullStory(true)}
-                                    className="text-primary hover:text-black mt-1 text-[12px] font-bold inline-block"
+                                    className="text-primary hover:text-black mt-2 text-[13px] font-bold inline-block underline underline-offset-4"
                                 >
-                                    Read More
+                                    Read Full Story
                                 </button>
                             )}
                         </div>
                     </div>
                 </div>
 
-                {/* Footer Placeholder */}
-                <div className="flex h-[40px] items-center justify-center bg-qa-gray border-t border-black/5" />
+                <div className="flex h-[52px] items-center justify-center bg-qa-gray border-t border-black/5" />
             </div>
 
             {/* Full Story Modal */}
