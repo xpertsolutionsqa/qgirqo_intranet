@@ -16,6 +16,8 @@ interface Winner {
     month: number;
     year: number;
     title: string;
+    category?: string;
+    quarter?: string;
     reason: string;
     featured_image?: string;
 }
@@ -74,7 +76,7 @@ export default function Index({ winners, employees }: Props) {
                                                 Featured Image
                                             </th>
                                             <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
-                                                Title
+                                                Title/Category
                                             </th>
                                             <th className="px-6 py-3 text-right text-xs font-medium uppercase tracking-wider text-gray-500">
                                                 Actions
@@ -118,8 +120,11 @@ export default function Index({ winners, employees }: Props) {
                                                         )}
                                                     </td>
                                                     <td className="px-6 py-4 whitespace-nowrap">
-                                                        <div className="text-sm text-gray-500 dark:text-gray-400">
-                                                            {winner.title || 'Star Performer'}
+                                                        <div className="text-sm font-bold text-gray-900 dark:text-gray-100">
+                                                            {winner.category || 'N/A'}
+                                                        </div>
+                                                        <div className="text-xs text-gray-500 dark:text-gray-400">
+                                                            {(winner as any).quarter ? (winner as any).quarter : 'Month-wise'}
                                                         </div>
                                                     </td>
                                                     <td className="px-6 py-4 text-right text-sm font-medium whitespace-nowrap">

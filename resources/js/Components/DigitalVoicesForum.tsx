@@ -42,8 +42,8 @@ export default function DigitalVoicesForum({ topics = [] }: { topics?: any[] }) 
         }
     }, [topics, selectedTopic?.id]);
 
-    const ideas = topics.slice(0, 2); // Show first 2 in carousel
-    const recent = topics.slice(2, 5); // Show next 3 in list
+    const ideas = topics; // Show all topics in carousel
+    const recent: any[] = []; // No longer using a separate list
 
     const { data, setData, post, processing, reset, errors, clearErrors } = useForm<{
         content: string;
@@ -202,30 +202,7 @@ export default function DigitalVoicesForum({ topics = [] }: { topics?: any[] }) 
                     </div>
                 )}
 
-                {/* Recent Ideas */}
-                {recent.length > 0 && (
-                    <>
-                        <div className="text-primary mb-3 text-[14px] font-bold uppercase">
-                            Recent Ideas
-                        </div>
-                        <ul className="mb-6 space-y-2 text-black">
-                            {recent.map((r) => (
-                                <li
-                                    key={r.id}
-                                    onClick={() => openModal(r)}
-                                    className="group flex cursor-pointer items-center justify-between rounded-lg p-2 transition-colors hover:bg-white/40"
-                                >
-                                    <span className="text-[13px] font-medium text-black line-clamp-1">
-                                        {r.title}
-                                    </span>
-                                    <div className="flex items-center gap-3">
-                                        <i className="fa-light fa-chevron-right text-qa-muted group-hover:text-primary h-4 w-4"></i>
-                                    </div>
-                                </li>
-                            ))}
-                        </ul>
-                    </>
-                )}
+
 
                 <div className="mb-6 flex items-center justify-center gap-[10px]">
                     <button className="dvf-prev flex h-8 w-8 cursor-pointer items-center justify-center rounded-lg text-black hover:bg-white/40 disabled:opacity-30">

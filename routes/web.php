@@ -19,6 +19,7 @@ Route::get('/exclusive-offers', [App\Http\Controllers\PublicPromotionController:
 Route::get('/celebrations', [App\Http\Controllers\CelebrationController::class, 'index'])->name('celebrations.index');
 Route::get('/company-events', [App\Http\Controllers\PublicEventController::class, 'index'])->name('events.public');
 Route::get('/photo-gallery', [App\Http\Controllers\PublicGalleryController::class, 'index'])->name('photo-gallery');
+Route::get('/employee-of-the-quarter/archive', [App\Http\Controllers\PublicWinnerController::class, 'index'])->name('winners.archive');
 
 
 Route::middleware(['auth', 'verified', 'is_admin'])->group(function () {
@@ -37,9 +38,11 @@ Route::middleware(['auth', 'verified', 'is_admin'])->group(function () {
 
     // New modules placeholders
     // Gallery routes
+    Route::resource('albums', \App\Http\Controllers\Admin\AlbumController::class);
+    Route::post('/albums/{album}/photos', [\App\Http\Controllers\GalleryController::class, 'store'])->name('gallery.store');
     Route::get('/gallery', [GalleryController::class, 'index'])->name('gallery.index');
-    Route::post('/gallery', [GalleryController::class, 'store'])->name('gallery.store');
     Route::delete('/gallery/{albumPhoto}', [GalleryController::class, 'destroy'])->name('gallery.destroy');
+    Route::resource('gallery-categories', \App\Http\Controllers\Admin\GalleryCategoryController::class)->except(['create', 'show', 'edit']);
     Route::delete('/forum/discussion/{topic}', [ForumController::class, 'destroy'])->name('forum.discussion.destroy');
 
 
@@ -73,6 +76,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/challenges/{challenge}/respond', [DashboardController::class, 'respondToChallenge'])->name('challenges.respond');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::get('/employee-directory', [\App\Http\Controllers\PublicEmployeeController::class, 'index'])->name('employee.directory');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 

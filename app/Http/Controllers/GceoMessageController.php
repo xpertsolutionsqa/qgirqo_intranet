@@ -25,7 +25,7 @@ class GceoMessageController extends Controller
         $validated = $request->validate([
             'title' => 'nullable|string|max:255',
             'cover_image' => 'nullable|image|max:2048', // 2MB Max
-            'video_url' => 'required|file|mimetypes:video/mp4,video/quicktime,video/ogg,video/x-msvideo|max:102400', // 100MB Max
+            'video_url' => 'nullable|file|mimetypes:video/mp4,video/quicktime,video/ogg,video/x-msvideo|max:102400', // 100MB Max
             'content' => 'nullable|string',
             'is_active' => 'boolean',
             'published_at' => 'nullable|date',
@@ -33,9 +33,12 @@ class GceoMessageController extends Controller
 
         // Auto-generate title if missing
         if (empty($validated['title'])) {
-            // Use original filename or simple timestamp
-            $originalName = $request->file('video_url')->getClientOriginalName();
-            $validated['title'] = 'GCEO Message - ' . pathinfo($originalName, PATHINFO_FILENAME);
+            if ($request->hasFile('video_url')) {
+                $originalName = $request->file('video_url')->getClientOriginalName();
+                $validated['title'] = 'GCEO Message - ' . pathinfo($originalName, PATHINFO_FILENAME);
+            } else {
+                $validated['title'] = 'GCEO Announcement - ' . now()->format('Y-m-d H:i');
+            }
         }
 
         $slug = Str::slug($validated['title']);
@@ -54,8 +57,10 @@ class GceoMessageController extends Controller
         }
 
         // Ensure defaults for others if coming from simplified form
-        if (!isset($validated['is_active'])) $validated['is_active'] = true;
-        if (!isset($validated['published_at'])) $validated['published_at'] = now();
+        if (!isset($validated['is_active']))
+            $validated['is_active'] = true;
+        if (!isset($validated['published_at']))
+            $validated['published_at'] = now();
 
         if ($request->hasFile('cover_image')) {
             $path = $request->file('cover_image')->store('gceo-messages', 'public');
@@ -65,6 +70,10 @@ class GceoMessageController extends Controller
         if ($request->hasFile('video_url')) {
             $path = $request->file('video_url')->store('gceo-messages', 'public');
             $validated['video_url'] = '/storage/' . $path;
+        }
+
+        if ($validated['is_active']) {
+            GceoMessage::where('is_active', true)->update(['is_active' => false]);
         }
 
         $message = GceoMessage::create($validated);
@@ -140,6 +149,10 @@ class GceoMessageController extends Controller
             unset($validated['video_url']);
         }
 
+
+        if (isset($validated['is_active']) && $validated['is_active']) {
+            GceoMessage::where('id', '!=', $gceoMessage->id)->update(['is_active' => false]);
+        }
 
         $gceoMessage->update($validated);
 

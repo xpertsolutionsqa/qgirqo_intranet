@@ -115,14 +115,7 @@ export default function Welcome({
 
                         {/* QUICK LINKS SIDEBAR - Fixed positioning as requested */}
                         <div className="quick_link_col w-[100px] shrink-0">
-                            <div
-                                className="fixed top-[114px] z-40 w-[100px]"
-                                style={
-                                    {
-                                        // right: 'max(0rem, calc((100vw - 1650px) / 2 + 0.2rem))',
-                                    }
-                                }
-                            >
+                            <div className="sticky top-24 z-40 w-[100px]">
                                 <QuickLinks />
                             </div>
                         </div>

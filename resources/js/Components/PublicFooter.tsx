@@ -40,19 +40,19 @@ export default function PublicFooter() {
                         },
                     ],
                 },
-                { label: 'Organization Chart', href: '#' },
+                /* { label: 'Organization Chart', href: '#' },
                 { label: 'Policies & Procedures', href: '#' },
-                { label: 'Whistle Blowing', href: '#' },
+                { label: 'Whistle Blowing', href: '#' }, */
             ],
         },
         {
             title: 'Workspace & Teams',
             links: [
                 { label: 'Event Calendar', href: '/company-events' },
-                { label: 'Employee Directory', href: '#' },
-                { label: 'Learning Resources', href: '#' },
+                { label: 'Employee Directory', href: '/employee-directory' },
+                /* { label: 'Learning Resources', href: '#' }, */
                 { label: 'Digital Voices Forum', href: '/forum/digital-voices' },
-                { label: 'Forms & Templates', href: '#' },
+                /* { label: 'Forms & Templates', href: '#' }, */
             ],
         },
         {
@@ -60,15 +60,16 @@ export default function PublicFooter() {
             links: [
                 { label: 'Promotions & Offers', href: '/exclusive-offers' },
                 { label: 'Birthday Calendar', href: '/celebrations' },
+                { label: 'Winners Archive', href: '/employee-of-the-quarter/archive' },
                 { label: 'Discussion Forum', href: '/forum/discussion' },
-                { label: 'Poll', href: '#' },
+                /* { label: 'Poll', href: '#' }, */
             ],
         },
         {
             title: 'Media Center',
             links: [
-                { label: 'News', href: '#' },
-                { label: 'Reports', href: '#' },
+                /* { label: 'News', href: '#' },
+                { label: 'Reports', href: '#' }, */
                 { label: 'Media Gallery', href: '/photo-gallery' },
             ],
         },

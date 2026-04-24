@@ -63,7 +63,7 @@ export default function UpcomingEvents({
         <div className="qg_card rounded-qa shadow-qa flex h-full flex-col overflow-hidden bg-primary/1">
             <div className="p-[16px_24px] text-center">
                 <h3 className="m-0 text-[22px] font-bold text-black">
-                    Upcoming Events
+                    Upcoming Company Events
                 </h3>
             </div>
 
@@ -134,7 +134,7 @@ export default function UpcomingEvents({
                         <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary/5">
                             <i className="fa-light fa-calendar-xmark text-primary text-[32px]"></i>
                         </div>
-                        <h4 className="m-0 text-[16px] font-semibold text-black">No Upcoming Events</h4>
+                        <h4 className="m-0 text-[16px] font-semibold text-black">No Upcoming Company Events</h4>
                         <p className="mt-1 text-[12px]">Stay tuned for future events!</p>
                     </div>
                 )}

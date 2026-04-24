@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\AlbumPhoto;
+use App\Models\GalleryCategory;
+use App\Models\Album;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -10,39 +12,34 @@ class PublicGalleryController extends Controller
 {
     public function index(Request $request)
     {
-        $query = AlbumPhoto::with('album')
-            ->whereHas('album', function ($q) {
-                $q->where('is_active', true);
-            })
-            ->latest();
+        $categories = GalleryCategory::all();
+
+        $query = Album::with(['category', 'photos'])
+            ->where('is_active', true);
+
+        if ($request->category) {
+            $query->whereHas('category', function ($q) use ($request) {
+                $q->where('slug', $request->category);
+            });
+        }
 
         if ($request->year) {
-            $query->where(function ($q) use ($request) {
-                $q->whereHas('album', function ($sq) use ($request) {
-                    $sq->whereYear('event_date', $request->year);
-                })->orWhere(function ($sq) use ($request) {
-                    $sq->whereYear('created_at', $request->year)
-                        ->whereDoesntHave('album', function ($ssq) {
-                            $ssq->whereNotNull('event_date');
-                        });
-                });
-            });
+            $query->whereYear('event_date', $request->year);
         }
 
         if ($request->search) {
-            $query->where(function ($q) use ($request) {
-                $q->where('caption', 'like', '%' . $request->search . '%')
-                    ->orWhereHas('album', function ($sq) use ($request) {
-                        $sq->where('title', 'like', '%' . $request->search . '%');
-                    });
-            });
+            $query->where('title', 'like', '%' . $request->search . '%');
         }
 
-        $photos = $query->paginate(24)->withQueryString();
+        $albums = $query->latest('event_date')->get()
+            ->groupBy(function ($album) {
+                return $album->event_date ? $album->event_date->format('Y') : $album->created_at->format('Y');
+            });
 
         return Inertia::render('PhotoGallery', [
-            'photos' => $photos,
-            'filters' => $request->only(['year', 'search']),
+            'categories' => $categories,
+            'albumsGrouped' => $albums,
+            'filters' => $request->only(['year', 'search', 'category']),
         ]);
     }
 }

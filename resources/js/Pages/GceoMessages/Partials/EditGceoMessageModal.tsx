@@ -138,17 +138,20 @@ export default function EditGceoMessageModal({
                     <div>
                         <InputLabel
                             htmlFor="edit_video_url"
+                            value="Video File (Optional - Leave blank to keep current)"
                             className="text-start"
                         />
-                        <TextInput
+                        <input
                             id="edit_video_url"
-                            type="url"
-                            className="mt-1 block w-full"
-                            value={data.video_url?.toString() ?? ''}
+                            type="file"
+                            className="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:rounded-full file:border-0 file:bg-indigo-50 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-indigo-700 hover:file:bg-indigo-100 dark:file:bg-gray-700 dark:file:text-gray-300"
+                            accept="video/*"
                             onChange={(e) =>
-                                setData('video_url', e.target.value)
+                                setData(
+                                    'video_url',
+                                    e.target.files ? e.target.files[0] : null,
+                                )
                             }
-                            placeholder="https://..."
                         />
                         <InputError
                             message={errors.video_url}

@@ -164,7 +164,7 @@ export default function DiscussionForum({ topics }: { topics: any[] }) {
             >
                 {pages.map((page, pageIndex) => (
                     <SwiperSlide key={pageIndex}>
-                        <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+                        <div className="grid grid-cols-1 gap-6 lg:grid-cols-1">
                             {page.map((df) => (
                                 <div
                                     key={df.id}

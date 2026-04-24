@@ -13,11 +13,12 @@ class Album extends Model
         'description',
         'cover_image',
         'event_date',
+        'category_id',
         'is_active',
     ];
 
     protected $casts = [
-        'event_date' => 'date',
+        'event_date' => 'datetime',
         'is_active' => 'boolean',
     ];
 
@@ -30,5 +31,10 @@ class Album extends Model
     public function creator()
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(GalleryCategory::class, 'category_id');
     }
 }

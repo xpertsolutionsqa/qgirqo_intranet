@@ -1,4 +1,4 @@
-import { usePage } from '@inertiajs/react';
+import { Link, usePage } from '@inertiajs/react';
 import { useState } from 'react';
 import { Autoplay, Navigation, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -171,7 +171,13 @@ export default function EmployeesOfMonth({
                         </Swiper>
                     </div>
 
-                    <div className="flex h-[52px] items-center justify-center gap-[10px] bg-qa-gray border-t border-black/5">
+                    <div className="flex h-[52px] items-center justify-between px-4 bg-qa-gray border-t border-black/5">
+                        <Link
+                            href={route('winners.archive')}
+                            className="text-[11px] font-bold text-primary hover:underline hover:text-black transition-colors uppercase tracking-tight"
+                        >
+                            View Archive
+                        </Link>
                         {employees.length > 1 && (
                             <div className="flex items-center gap-[2px]">
                                 <button className="emp-prev flex h-[34px] w-[34px] cursor-pointer items-center justify-center rounded-[10px] border-none bg-transparent text-black hover:bg-white/40 disabled:cursor-auto disabled:opacity-30">

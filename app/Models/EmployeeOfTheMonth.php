@@ -12,6 +12,7 @@ class EmployeeOfTheMonth extends Model
         'year',
         'quarter',
         'title',
+        'category',
         'reason',
         'featured_image',
     ];

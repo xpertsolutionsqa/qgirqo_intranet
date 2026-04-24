@@ -1,56 +1,53 @@
 # Changelog
 
-## [2026-04-19]
+## [Pending Tasks]
 
-### DashboardController.php
+- [x] Upcoming Company Events (Renamed from Upcoming Events)
+- [x] Increase font size across the intranet for better readability
+- [x] Digital Voices Forum: Carousel for the latest three items
+- [x] Gallery: Organized by categories and year (Public & Admin)
+- [x] Employee of the Quarter: Full category support & Public Archive
+- [x] Employee Directory: Modernized searchable directory for all staff
+- [x] Footer Consistency: Updated all links and fixed behavior
 
-- [COMPLETED] Updated `getWelcomeData` method to filter `events` so only today's and future events are displayed.
-- [COMPLETED] Fixed event sorting: Closest upcoming events (ascending order) now appear first.
+### UI/UX Cleanup & Finalization
 
-### UpcomingEvents.tsx
+- [x] Commented out all placeholder links (#) in Footer and QuickLinks for a production-ready feel.
+- [x] Fixed QuickLinks icon hover behavior and removed invalid CSS classes.
+- [x] Updated Footer with working links to Employee Directory and Winners Archive.
+- [x] Increased global base font size to 16px for improved readability.
+- [x] Simplified the Employee of the Quarter admin modal (hidden unused month selection).
 
-- [COMPLETED] Added an empty state (No Upcoming Events) UI when the events array is empty.
+## [2026-04-23]
 
-### AuthController.php (Azure SSO)
+### Upcoming Company Events
 
-- [COMPLETED] Implemented JIT (Just-In-Time) Provisioning.
-- [COMPLETED] Users logging in via SSO who don't exist in the DB are now automatically created as 'employee'.
-- [COMPLETED] Automatic creation of EmployeeProfile with default Department/Designation and unique Employee ID.
+- [COMPLETED] Renamed "Upcoming Events" to "Upcoming Company Events" in `UpcomingEvents.tsx`.
+- [COMPLETED] Updated empty state message to "No Upcoming Company Events".
 
-## [21st April 2026]
+### Video/Announcement Section
 
-### Layout & UI Balance (Row 3)
+- [COMPLETED] Made `video_url` optional in `GceoMessageController` to support image-only announcements.
+- [COMPLETED] Updated `CreateGceoMessageModal` to include Title, Cover Image, and Content fields.
+- [COMPLETED] Fixed `EditGceoMessageModal` to use file upload for videos (consistency).
+- [COMPLETED] Updated `GCEOMessage` component to handle image-only mode (hide play button, disable click).
 
-- [COMPLETED] Standardized card heights for "Employees of the Quarter", "Humans of QGIRCO", and "Employee Offers".
-- [COMPLETED] Enlarged images in all Row 3 cards to reduce white space and improve balance.
-- [COMPLETED] Added hover zoom effects and fixed footer heights to 52px for perfect alignment.
+### Digital Voices Forum
 
-### Employees of the Quarter
+- [COMPLETED] Consolidated all latest items into the main carousel (Slider).
+- [COMPLETED] Removed the separate "Recent Ideas" list to create a cleaner, slider-focused UI.
 
-- [COMPLETED] Added "Award Title" display below the user position.
-- [COMPLETED] Updated `AddWinnerModal.tsx` to include Category dropdown (mapped to reason) while keeping Award Title text input.
-- [COMPLETED] Hid "Achievement Reason" textarea to simplify the modal.
+### Readability Optimization
 
-### Admin Modules (Others Section)
+- [COMPLETED] Increased root font size to 106.25% (17px) to scale all UI elements.
+- [COMPLETED] Increased global line-height to 1.6 for better text readability.
 
-- [COMPLETED] Added "Others" section to Sidebar in `AuthenticatedLayout.tsx`.
-- [COMPLETED] Commented out "Manage Users" (Moved/Hidden as per request).
-- [COMPLETED] Added "Departments", "Designations", and "Roles" management links.
-- [COMPLETED] Created `DepartmentController`, `DesignationController`, and `RoleController`.
-- [COMPLETED] Implemented full CRUD for **Departments**, **Designations**, and **Roles** using Modals (Create/Edit) and modern table design.
+### Gallery Management
 
-### Employee of the Quarter Enhancements
-
-- [COMPLETED] Added `quarter` column to `employee_of_the_months` database table.
-- [COMPLETED] Updated `AddWinnerModal.tsx` to include "Select Quarter" dropdown with auto-detection of current quarter.
-- [COMPLETED] Added `quarter` field supporting in `EmployeeOfTheMonth` Model and `EmployeeOfTheMonthController`.
-
-### Dashboard Design Implementation (Staged)
-
-- [COMPLETED] Developed new premium card design for "Humans of QGIRCO", "Employees of the Month", and "Employee Offers" featuring:
-    - Unified Top Image / Bottom Info structure.
-    - Glassmorphism-inspired hover effects (zoom + darkening).
-    - Soft gray/blue gradients for visual depth.
-    - Standardized rounded-full button styles.
-    - Autoplay/Loop motion for carousels.
-- [STAGED] Commented out the new design in all three components to maintain consistency until client final sign-off; reverted UI to previous production state while preserving the new code for quick activation.
+- [COMPLETED] Created `GalleryCategory` model and full management UI in dashboard.
+- [COMPLETED] Implemented `Album` system (Creation with Category, Date, and Cover Image).
+- [COMPLETED] Developed Admin Album index with photo counts and quick Edit/Delete actions.
+- [COMPLETED] Refactored `GalleryController` to support multi-album media uploads.
+- [COMPLETED] Redesigned Public Gallery with Category Tabs and Year-based grouping.
+- [COMPLETED] Integrated Lightbox/Media Viewer for a premium public browsing experience.
+- [COMPLETED] Updated Sidebar navigation for streamlined Gallery management.

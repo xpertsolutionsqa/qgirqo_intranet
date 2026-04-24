@@ -195,7 +195,7 @@ class DashboardController extends Controller
                     })
                     ->values()
             ),
-            'gceo_message' => GceoMessage::where('is_active', true)->latest('published_at')->first(),
+            'gceo_message' => GceoMessage::where('is_active', true)->latest('created_at')->first(),
             'recent_photos' => \App\Models\AlbumPhoto::whereHas('album', function ($q) {
                 $q->where('is_active', true);
             })

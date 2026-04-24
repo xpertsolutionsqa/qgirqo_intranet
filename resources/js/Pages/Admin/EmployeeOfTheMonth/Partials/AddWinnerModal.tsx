@@ -27,6 +27,7 @@ export default function AddWinnerModal({ show, onClose, employees }: Props) {
         year: number;
         quarter: string;
         title: string;
+        category: string;
         reason: string;
         featured_image: File | null;
     }>({
@@ -34,7 +35,8 @@ export default function AddWinnerModal({ show, onClose, employees }: Props) {
         month: currentMonth,
         year: currentYear,
         quarter: currentQuarter,
-        title: 'Star Performer',
+        title: 'Employee of the Quarter',
+        category: '',
         reason: '',
         featured_image: null,
     });
@@ -116,7 +118,7 @@ export default function AddWinnerModal({ show, onClose, employees }: Props) {
                 </div>
 
                 <div className="mt-4 grid grid-cols-2 gap-4">
-                    <div>
+                    <div className="hidden">
                         <InputLabel htmlFor="month" value="Month" />
                         <select
                             id="month"
@@ -134,7 +136,7 @@ export default function AddWinnerModal({ show, onClose, employees }: Props) {
                         <InputError message={errors.month} className="mt-2" />
                     </div>
 
-                    <div>
+                    <div className="col-span-2">
                         <InputLabel htmlFor="year" value="Year" />
                         <select
                             id="year"
@@ -155,12 +157,12 @@ export default function AddWinnerModal({ show, onClose, employees }: Props) {
 
                 <div className="mt-4 grid grid-cols-2 gap-4">
                     <div>
-                        <InputLabel htmlFor="reason" value="Select Category" />
+                        <InputLabel htmlFor="category" value="Award Category" />
                         <select
-                            id="reason"
+                            id="category"
                             className="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm"
-                            value={data.reason}
-                            onChange={(e) => setData('reason', e.target.value)}
+                            value={data.category}
+                            onChange={(e) => setData('category', e.target.value)}
                             required
                         >
                             <option value="">Select a category...</option>
@@ -168,8 +170,9 @@ export default function AddWinnerModal({ show, onClose, employees }: Props) {
                             <option value="Outstanding Leadership">Outstanding Leadership</option>
                             <option value="Excellence in Service">Excellence in Service</option>
                             <option value="Team Spirit Award">Team Spirit Award</option>
+                            <option value="Customer Focus">Customer Focus</option>
                         </select>
-                        <InputError message={errors.reason} className="mt-2" />
+                        <InputError message={errors.category} className="mt-2" />
                     </div>
 
                     <div>
@@ -203,17 +206,17 @@ export default function AddWinnerModal({ show, onClose, employees }: Props) {
                     <InputError message={errors.title} className="mt-2" />
                 </div>
 
-                {/* <div className="mt-4">
-                    <InputLabel htmlFor="reason" value="Achievement Reason" />
+                <div className="mt-4">
+                    <InputLabel htmlFor="reason" value="Achievement Details (Optional)" />
                     <textarea
                         id="reason"
                         className="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm"
                         value={data.reason}
                         onChange={(e) => setData('reason', e.target.value)}
-                        rows={3}
+                        rows={2}
                     />
                     <InputError message={errors.reason} className="mt-2" />
-                </div> */}
+                </div>
 
                 <div className="mt-4">
                     <InputLabel htmlFor="featured_image" value="Featured Image (Optional)" />

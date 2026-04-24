@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\AlbumPhoto;
+use App\Models\Album;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
@@ -17,7 +18,7 @@ class GalleryController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(Request $request, Album $album)
     {
         ini_set('memory_limit', '512M');
         $validated = $request->validate([
@@ -33,14 +34,14 @@ class GalleryController extends Controller
             $path = $file->store('gallery', 'public');
 
             AlbumPhoto::create([
-                'album_id' => 1, // Default album
+                'album_id' => $album->id,
                 'file_path' => '/storage/' . $path,
                 'type' => $type,
                 'caption' => $validated['caption'] ?? null,
             ]);
         }
 
-        return to_route('gallery.index')->with('success', ucfirst($type) . ' uploaded successfully');
+        return back()->with('success', ucfirst($type) . ' uploaded successfully');
     }
 
     public function destroy(AlbumPhoto $albumPhoto)

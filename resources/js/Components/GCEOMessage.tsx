@@ -9,10 +9,10 @@ export default function GCEOMessage({ message }: { message?: any }) {
 
     return (
         <div
-            className="qa-card gceo_mesg rounded-qa shadow-qa border-qa-border h-full overflow-hidden border"
-            onClick={handlePlay}
+            className={`qa-card gceo_mesg rounded-qa shadow-qa border-qa-border h-full overflow-hidden border ${message.video_url ? 'cursor-pointer' : ''}`}
+            onClick={message.video_url ? handlePlay : undefined}
         >
-            <div className="qa-media group relative h-full cursor-pointer bg-slate-900">
+            <div className="qa-media group relative h-[390px] bg-slate-900">
                 <img
                     src={
                         message.cover_image || '/assets/img/Rectangle-1383.jpg'

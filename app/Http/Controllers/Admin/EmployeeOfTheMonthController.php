@@ -33,6 +33,7 @@ class EmployeeOfTheMonthController extends Controller
             'year' => 'required|integer|min:2000|max:2100',
             'quarter' => 'nullable|string|max:10',
             'title' => 'nullable|string|max:255',
+            'category' => 'nullable|string|max:255',
             'reason' => 'nullable|string',
             'featured_image' => 'nullable|image|max:2048',
         ]);
