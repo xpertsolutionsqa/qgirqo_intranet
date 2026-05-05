@@ -141,7 +141,7 @@ export default function DiscussionForum({ topics }: { topics: any[] }) {
     };
 
     return (
-        <section className="df_section mx-auto w-full max-w-[1120px]">
+        <section className="qg_card qg_poll rounded-qa shadow-qa  mx-auto w-full  bg-[#e5e5f9] p-[18px_22px_16px] h-full">
             {/* Top Line */}
             <div className="mb-2 h-[2px] rounded-full bg-[#e5e5f9]" />
 
@@ -164,7 +164,7 @@ export default function DiscussionForum({ topics }: { topics: any[] }) {
             >
                 {pages.map((page, pageIndex) => (
                     <SwiperSlide key={pageIndex}>
-                        <div className="grid grid-cols-1 gap-6 lg:grid-cols-1">
+                        <div className={`grid grid-cols-1 gap-6 ${page.length > 1 ? 'lg:grid-cols-2' : 'lg:grid-cols-1'}`}>
                             {page.map((df) => (
                                 <div
                                     key={df.id}

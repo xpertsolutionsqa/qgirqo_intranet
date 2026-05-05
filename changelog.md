@@ -10,13 +10,11 @@
 - [x] Employee Directory: Modernized searchable directory for all staff
 - [x] Footer Consistency: Updated all links and fixed behavior
 
-### UI/UX Cleanup & Finalization
-
-- [x] Commented out all placeholder links (#) in Footer and QuickLinks for a production-ready feel.
-- [x] Fixed QuickLinks icon hover behavior and removed invalid CSS classes.
-- [x] Updated Footer with working links to Employee Directory and Winners Archive.
-- [x] Increased global base font size to 16px for improved readability.
-- [x] Simplified the Employee of the Quarter admin modal (hidden unused month selection).
+- [x] Modernized all Welcome Page cards (HumansOfQgirco, EmployeesOfMonth, EmployeeOffers, WorkAnniversaries, UpcomingEvents) with a premium, unified design system.
+- [x] Implemented smooth hover effects (zoom-in and background darkening) across all dashboard components.
+- [x] Enabled Autoplay/Motion for all card carousels to enhance interactivity.
+- [x] Applied soft gradients, borders, and shadows to all cards for improved visual depth.
+- [x] Standardized card layout with image-top and info-bottom structure.
 
 ## [2026-04-23]
 

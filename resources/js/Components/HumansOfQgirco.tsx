@@ -79,8 +79,65 @@ export default function HumansOfQgirco({ featured }: { featured?: HumansWall | n
                 <div className="flex h-[52px] items-center justify-center border-t border-gray-100 bg-gray-50/50" />
             </div> */}
 
-            <div className="qg_card rounded-qa shadow-qa flex h-full flex-col overflow-hidden bg-[#e5e5f9]">
+            {/* Latest Modernized Design (2026-04-28) */}
+            <div className="qg_card group rounded-qa border border-qa-border shadow-qa transition-all duration-500 hover:shadow-2xl flex h-full flex-col overflow-hidden bg-gradient-to-br from-[#f8faff] to-[#eef2ff]">
                 {/* Header with Blue Fill */}
+                <div className="bg-primary p-[16px_24px] text-center">
+                    <h3 className="m-0 text-xl font-bold text-white capatilize tracking-wider">
+                        Humans of QGIRCO Wall
+                    </h3>
+                </div>
+
+                <div className="qg_card_body flex flex-grow flex-col p-0">
+                    {/* Image at Top */}
+                    <div className="relative h-[220px] w-full overflow-hidden">
+                        <img
+                            src={avatar}
+                            alt={employeeName}
+                            className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                        />
+                        {/* Subtle Darkening Overlay on Hover */}
+                        <div className="absolute inset-0 bg-black/0 transition-colors duration-300 group-hover:bg-black/20" />
+
+                        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
+                            <div className="text-[18px] font-bold capatilize text-white drop-shadow-md text-center">
+                                Meet {employeeName}
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Info at Bottom */}
+                    <div className="flex flex-grow flex-col justify-between p-5 space-y-4">
+                        <div className="space-y-3">
+                            <p className="text-[15px] text-primary leading-[1.4] font-semibold italic">
+                                “ {featured?.quote || 'Share your story with us.'} ”
+                            </p>
+                            <p className="text-[14px] leading-[1.6] text-gray-700 line-clamp-3">
+                                {featured ? (
+                                    <>{featured?.story}</>
+                                ) : (
+                                    `This month we celebrate ${employeeName} from our ${deptName}.`
+                                )}
+                            </p>
+                        </div>
+                        {featured && featured.story && (
+                            <div>
+                                <button
+                                    onClick={() => setShowFullStory(true)}
+                                    className="bg-primary hover:bg-black text-white w-full py-2.5 rounded-full text-[13px] font-bold transition-all duration-300 transform shadow-md active:scale-95"
+                                >
+                                    Read Full Story
+                                </button>
+                            </div>
+                        )}
+                    </div>
+                </div>
+
+                <div className="flex h-[52px] items-center justify-center border-t border-black/5 bg-black/2" />
+            </div>
+
+            {/* Previous Design (Commented out as requested) */}
+            {/* <div className="qg_card rounded-qa shadow-qa flex h-full flex-col overflow-hidden bg-[#e5e5f9]">
                 <div className="bg-primary p-[16px_24px] text-center">
                     <h3 className="m-0 text-2xl font-bold text-white">
                         Humans of QGIRCO Wall
@@ -128,7 +185,7 @@ export default function HumansOfQgirco({ featured }: { featured?: HumansWall | n
                 </div>
 
                 <div className="flex h-[52px] items-center justify-center bg-qa-gray border-t border-black/5" />
-            </div>
+            </div> */}
 
             {/* Full Story Modal */}
             <Modal show={showFullStory} onClose={() => setShowFullStory(false)}>
@@ -142,7 +199,7 @@ export default function HumansOfQgirco({ featured }: { featured?: HumansWall | n
                             />
                         </div>
                         <div>
-                            <h2 className="text-2xl font-bold text-black uppercase">
+                            <h2 className="text-2xl font-bold text-black capatilize">
                                 Meet {employeeName}
                             </h2>
                             <p className="text-primary text-lg italic">

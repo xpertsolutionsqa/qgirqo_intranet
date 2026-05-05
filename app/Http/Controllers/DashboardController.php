@@ -216,7 +216,7 @@ class DashboardController extends Controller
                 ->latest()
                 ->take(3)
                 ->get(),
-            'emp_of_the_month' => EmployeeOfTheMonth::with(['user.profile', 'user.profile.department'])
+            'emp_of_the_month' => EmployeeOfTheMonth::with(['user.profile', 'user.profile.department', 'user.profile.designation'])
                 ->latest('year')
                 ->latest('month')
                 ->take(5)

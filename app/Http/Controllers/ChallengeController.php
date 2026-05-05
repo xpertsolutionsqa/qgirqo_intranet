@@ -74,7 +74,7 @@ class ChallengeController extends Controller
         $request->validate([
             'question' => 'required|string|max:255',
             'scheduled_at' => 'nullable|date',
-            'image' => 'nullable|image|max:2048',
+            'image' => 'nullable|mimes:jpeg,png,jpg,gif,mp4,mov,avi,webm|max:20480',
             'options' => 'required|array|min:3|max:4',
             'options.*' => 'required|string|max:255',
         ]);
@@ -113,7 +113,7 @@ class ChallengeController extends Controller
         $request->validate([
             'question' => 'required|string|max:255',
             'scheduled_at' => 'nullable|date',
-            'image' => 'nullable|image|max:2048',
+            'image' => 'nullable|mimes:jpeg,png,jpg,gif,mp4,mov,avi,webm|max:20480',
             'options' => 'required|array|min:3|max:4',
             'options.*' => 'required|string|max:255',
         ]);

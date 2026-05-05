@@ -51,16 +51,16 @@ export default function Index({ auth, departments }: { auth: any, departments: a
                                 <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                                     <thead className="bg-gray-50 dark:bg-gray-900/50">
                                         <tr>
-                                            <th className="px-6 py-3 text-left font-medium tracking-wider text-gray-500 uppercase">
+                                            <th className="px-6 py-3 text-left font-medium tracking-wider text-gray-500 capatilize">
                                                 Name
                                             </th>
-                                            <th className="px-6 py-3 text-left font-medium tracking-wider text-gray-500 uppercase">
+                                            <th className="px-6 py-3 text-left font-medium tracking-wider text-gray-500 capatilize">
                                                 Slug
                                             </th>
-                                            <th className="px-6 py-3 text-left font-medium tracking-wider text-gray-500 uppercase">
+                                            <th className="px-6 py-3 text-left font-medium tracking-wider text-gray-500 capatilize">
                                                 Created At
                                             </th>
-                                            <th className="px-6 py-3 text-right font-medium tracking-wider text-gray-500 uppercase">
+                                            <th className="px-6 py-3 text-right font-medium tracking-wider text-gray-500 capatilize">
                                                 Actions
                                             </th>
                                         </tr>

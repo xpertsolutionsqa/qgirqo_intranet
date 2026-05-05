@@ -54,26 +54,38 @@ export default function HealthWellnessHub({
     };
 
     return (
-        <section className="qg_card hwh_card rounded-qa shadow-qa relative flex h-full min-h-[400px] flex-col overflow-hidden bg-[#e5e5f9] md:flex-row">
+        <section className="qg_card hwh_card rounded-qa shadow-qa relative flex  h-full flex-col overflow-hidden bg-[#e5e5f9] md:flex-row">
             {challenge ? (
                 <>
                     {/* Left Side: Vertical Image Section */}
-                    <div className="relative w-full md:w-[32%] lg:w-[35%] shrink-0 overflow-hidden">
-                        <img
-                            src={challenge.data.image_path ? `/storage/${challenge.data.image_path}` : "https://images.unsplash.com/photo-1563603410-ecb8599426f8?q=80&w=1600&auto=format&fit=crop"}
-                            alt="Challenge Image"
-                            className="h-[200px] w-full object-cover transition-transform duration-700 hover:scale-105 md:h-full"
-                        />
+                    <div className="relative w-full h-[250px] md:h-auto md:w-[32%] lg:w-[35%] shrink-0 overflow-hidden transform-gpu">
+                        {challenge.data.image_path?.match(/\.(mp4|mov|avi|webm)$/i) ? (
+                            <video
+                                src={`/storage/${challenge.data.image_path}`}
+                                className="absolute inset-0 h-full w-full object-cover transform-gpu will-change-transform"
+                                autoPlay
+                                loop
+                                muted
+                                playsInline
+                                preload="metadata"
+                            />
+                        ) : (
+                            <img
+                                src={challenge.data.image_path ? `/storage/${challenge.data.image_path}` : "https://images.unsplash.com/photo-1563603410-ecb8599426f8?q=80&w=1600&auto=format&fit=crop"}
+                                alt="Challenge Image"
+                                className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 hover:scale-105"
+                            />
+                        )}
 
                         {/* Badge/Overlay */}
-                        <div className="absolute top-4 left-4">
-                            <span className="bg-primary/90 backdrop-blur-sm rounded-full px-4 py-2 text-[11px] font-bold text-white shadow-xl">
-                                Ramadan Competition
+                        <div className="absolute top-4 left-4 right-4 text-center transform-gpu">
+                            <span className="bg-primary rounded-full px-4 py-2 text-[11px] font-bold text-white shadow-xl inline-block">
+                                Intranet Competition
                             </span>
                         </div>
 
-                        <div className="absolute bottom-6 left-6 right-6">
-                            <div className="bg-white/10 border border-white/20 backdrop-blur-md block text-center rounded-xl p-3 text-[12px] font-bold text-white shadow-lg">
+                        <div className="absolute bottom-6 left-6 right-6 transform-gpu">
+                            <div className="bg-black/40 border border-white/20 block text-center rounded-xl p-3 text-[12px] font-bold text-white shadow-lg">
                                 Daily Knowledge Booster
                             </div>
                         </div>
@@ -82,7 +94,7 @@ export default function HealthWellnessHub({
                     {/* Right Side: Challenge Area */}
                     <div className="flex flex-grow flex-col p-6 md:p-8">
                         <div className="mb-6">
-                            <h3 className="text-primary/60 text-[11px] font-bold uppercase tracking-wider mb-1">
+                            <h3 className="text-primary/60 text-[11px] font-bold capatilize tracking-wider mb-1">
                                 Today's Question
                             </h3>
                             <h2 className="text-[22px] font-extrabold text-black leading-tight">
@@ -106,16 +118,16 @@ export default function HealthWellnessHub({
                                             <button
                                                 key={option.id}
                                                 onClick={() => setSelectedOption(option.id)}
-                                                className={`group relative flex items-center justify-between rounded-xl border-2 p-4 transition-all duration-200 ${selectedOption === option.id
+                                                className={`group relative flex items-center justify-between gap-4 rounded-xl border-2 p-4 transition-all duration-200 ${selectedOption === option.id
                                                     ? 'border-primary bg-primary/5 shadow-sm'
                                                     : 'border-gray-100 bg-white hover:border-gray-200 hover:bg-gray-50'
                                                     }`}
                                             >
-                                                <span className={`text-sm font-extrabold text-black leading-tight ${selectedOption === option.id ? 'text-primary' : 'text-gray-700 group-hover:text-black'
+                                                <span className={`text-sm text-start font-extrabold text-black leading-tight ${selectedOption === option.id ? 'text-primary' : 'text-gray-700 group-hover:text-black'
                                                     }`}>
                                                     {option.option_text}
                                                 </span>
-                                                <div className={`h-5 w-5 rounded-full border-2 flex items-center justify-center transition-all ${selectedOption === option.id
+                                                <div className={`h-5 w-5 shrink-0 rounded-full border-2 flex items-center justify-center transition-all ${selectedOption === option.id
                                                     ? 'border-primary bg-primary'
                                                     : 'border-gray-200 bg-white'
                                                     }`}>
@@ -128,7 +140,7 @@ export default function HealthWellnessHub({
                                     </div>
 
                                     <div className="mt-6 pt-4 border-t border-gray-100 flex items-center justify-between">
-                                        <div className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">
+                                        <div className="text-[10px] font-bold text-gray-400 capatilize tracking-widest">
                                             Answer carefully
                                         </div>
                                         <button

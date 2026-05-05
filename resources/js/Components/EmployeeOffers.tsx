@@ -58,8 +58,99 @@ export default function EmployeeOffers({ offers = [] }: { offers?: any[] }) {
                 </div>
             </div> */}
 
-            <div className="qg_card rounded-qa shadow-qa relative flex h-full flex-col overflow-hidden bg-[#e5e5f9]">
+            {/* Latest Modernized Design (2026-04-28) */}
+            <div className="qg_card group rounded-qa border border-qa-border shadow-qa transition-all duration-500 hover:shadow-2xl relative flex h-full flex-col overflow-hidden bg-gradient-to-br from-[#f8faff] to-[#eef2ff]">
                 {/* Header with Blue Fill */}
+                <div className="bg-primary p-[16px_24px] text-center">
+                    <h3 className="m-0 text-xl font-bold text-white capatilize tracking-wider">
+                        Employee Promotions & Offers
+                    </h3>
+                </div>
+
+                <div className="flex-grow p-0">
+                    <Swiper
+                        modules={[Navigation, Pagination, Autoplay]}
+                        autoplay={{ delay: 5000, disableOnInteraction: false }}
+                        loop={offers.length > 1}
+                        navigation={{
+                            prevEl: '.offer-prev',
+                            nextEl: '.offer-next',
+                        }}
+                        pagination={{
+                            el: '.offer-pagination',
+                            clickable: true,
+                        }}
+                        className="h-full"
+                    >
+                        {offers.map((offer) => (
+                            <SwiperSlide key={offer.id}>
+                                <div className="flex h-full flex-col items-center bg-transparent">
+                                    {/* Image at Top */}
+                                    <div className="relative h-[220px] w-full overflow-hidden">
+                                        <img
+                                            src={offer.featured_image ? `/storage/${offer.featured_image}` : '/assets/img/Rectangle-1384-1.jpg'}
+                                            alt={offer.title}
+                                            className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                                        />
+                                        {/* Subtle Darkening Overlay on Hover */}
+                                        <div className="absolute inset-0 bg-black/0 transition-colors duration-300 group-hover:bg-black/20" />
+
+                                        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4 text-center">
+                                            <div className="text-[18px] font-bold text-white drop-shadow-md line-clamp-1">
+                                                {offer.title}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* Info at Bottom */}
+                                    <div className="flex grow flex-col items-center justify-between p-5 w-full text-center space-y-4">
+                                        <div className="text-qa-muted text-[13px] line-clamp-2 min-h-[40px] font-medium italic">
+                                            {offer.summary || 'Exclusive rewards for QGIRCO employees.'}
+                                        </div>
+                                        <div className="w-full pt-2">
+                                            <a
+                                                href={
+                                                    offer.link_type === 'pdf'
+                                                        ? `/storage/${offer.document_path}`
+                                                        : offer.link_type === 'external'
+                                                            ? offer.external_link
+                                                            : '#'
+                                                }
+                                                target={offer.link_type === 'none' ? '_self' : '_blank'}
+                                                rel="noopener noreferrer"
+                                                className="bg-primary hover:bg-black w-full rounded-full py-2.5 text-[13px] font-bold text-white transition-all shadow-md active:scale-95 inline-block"
+                                            >
+                                                {offer.link_type === 'pdf' ? 'Open PDF' : 'View Details'}
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </SwiperSlide>
+                        ))}
+                    </Swiper>
+                </div>
+
+                <div className="relative flex h-[52px] items-center justify-center gap-[10px] border-t border-black/5 bg-black/2 p-[10px_26px]">
+                    <div className="mx-auto flex items-center gap-[2px]">
+                        <button className="offer-prev flex h-[34px] w-[34px] cursor-pointer items-center justify-center rounded-[10px] border-none bg-transparent text-black hover:bg-black/5 disabled:cursor-auto disabled:opacity-30">
+                            <i className="fa-light fa-chevron-left text-[14px]"></i>
+                        </button>
+                        <div className="offer-pagination flex !w-auto items-center" />
+                        <button className="offer-next flex h-[34px] w-[34px] cursor-pointer items-center justify-center rounded-[10px] border-none bg-transparent text-black hover:bg-black/5 disabled:cursor-auto disabled:opacity-30">
+                            <i className="fa-light fa-chevron-right text-[14px]"></i>
+                        </button>
+                    </div>
+                    <Link
+                        href={route('offers.index')}
+                        className="text-primary absolute right-[26px] text-[12px] font-bold underline hover:text-black capatilize tracking-tight"
+                    >
+                        View All
+                    </Link>
+                </div>
+            </div>
+
+            {/* Previous Design (Commented out as requested) */}
+            {/* <div className="qg_card rounded-qa shadow-qa relative flex h-full flex-col overflow-hidden bg-[#e5e5f9]">
                 <div className="bg-primary p-[16px_24px] text-center">
                     <h3 className="m-0 text-2xl font-bold text-white">
                         Employee Promotions & Offers
@@ -136,7 +227,7 @@ export default function EmployeeOffers({ offers = [] }: { offers?: any[] }) {
                         View All
                     </Link>
                 </div>
-            </div>
+            </div> */}
 
             <style
                 dangerouslySetInnerHTML={{

@@ -70,7 +70,7 @@ export default function PhotoGallery({ categories, albumsGrouped, filters }: any
                     <div className="flex gap-6">
                         <div className="flex-grow">
                             <div className="mb-8 flex flex-col md:flex-row md:items-center justify-between gap-4">
-                                <h1 className="text-3xl font-bold text-black uppercase">Photo Gallery</h1>
+                                <h1 className="text-3xl font-bold text-black capatilize">Photo Gallery</h1>
 
                                 <div className="relative w-full md:w-64">
                                     <input

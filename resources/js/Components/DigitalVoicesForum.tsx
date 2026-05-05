@@ -130,7 +130,7 @@ export default function DigitalVoicesForum({ topics = [] }: { topics?: any[] }) 
     };
 
     return (
-        <div className="qg_card dvf_card rounded-qa shadow-qa relative flex h-full flex-col overflow-hidden bg-[#e5e5f9] p-6">
+        <div className="qg_card dvf_card rounded-qa shadow-qa relative flex h-full flex-col overflow-hidden bg-[#e5e5f9] p-4">
             <h3 className="mb-6 text-center text-[22px] font-bold text-black">
                 Digital Voices Forum
             </h3>
@@ -151,8 +151,8 @@ export default function DigitalVoicesForum({ topics = [] }: { topics?: any[] }) 
                     >
                         {ideas.map((idea) => (
                             <SwiperSlide key={idea.id}>
-                                <div className="rounded-qa border-qa-border border bg-primary p-5 shadow-sm">
-                                    <div className="mb-3 flex items-start gap-4">
+                                <div className="rounded-qa border-qa-border border bg-white shadow-sm">
+                                    <div className="mb-3 flex items-start gap-4 bg-primary p-4">
                                         <div className="text-primary flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[#f4f4ff]">
                                             <i className="fa-light fa-lightbulb text-[24px]"></i>
                                         </div>
@@ -165,29 +165,31 @@ export default function DigitalVoicesForum({ topics = [] }: { topics?: any[] }) 
                                             </div>
                                         </div>
                                     </div>
-                                    <p className="mb-4 text-[13px] leading-relaxed text-white line-clamp-2">
-                                        {idea.content.replace(/<[^>]*>?/gm, '')}
-                                    </p>
+                                    <div className="p-3">
+                                        <p className="text-[13px] leading-relaxed text-primary line-clamp-3">
+                                            {idea.content.replace(/<[^>]*>?/gm, '')}
+                                        </p>
+                                    </div>
                                     <div className="mb-3 h-px bg-gray-100" />
-                                    <div className="text-white flex items-center justify-between text-[11px]">
-                                        <span className="flex items-center gap-1">
-                                            <i className={`fa-solid fa-thumbs-up ${idea.is_liked ? 'text-white' : 'text-white/70'}`}></i>
+                                    <div className="text-white flex items-center justify-between text-[11px] p-3">
+                                        <span className="flex items-center gap-1 text-primary">
+                                            <i className={`fa-solid fa-thumbs-up ${idea.is_liked ? 'text-primary' : 'text-primary/70'}`}></i>
                                             {idea.likes_count || 0} Votes
                                         </span>
-                                        <span className="flex items-center gap-1">
-                                            <i className="fa-light fa-comment-dots text-white text-[12px]"></i>
+                                        <span className="flex items-center gap-1 text-primary">
+                                            <i className="fa-light fa-comment-dots text-[12px]"></i>
                                             {idea.replies_count || 0} Comments
                                         </span>
-                                        <span className="flex items-center gap-1">
-                                            <i className="fa-light fa-eye text-white text-[12px]"></i>
+                                        <span className="flex items-center gap-1 text-primary">
+                                            <i className="fa-light fa-eye text-[12px]"></i>
                                             {idea.view_count || 0} Views
                                         </span>
                                     </div>
                                     <div className="my-3 h-px bg-gray-100" />
-                                    <div className="text-center mt-2">
+                                    <div className="text-center mt-2 p-2">
                                         <button
                                             onClick={() => openModal(idea)}
-                                            className="text-white border border-white rounded-full px-4 py-1 text-[12px] font-bold hover:bg-white hover:text-primary transition-all"
+                                            className="text-primary border border-primary rounded-full px-4 py-1 text-[12px] font-bold hover:bg-primary hover:text-white transition-all"
                                         >
                                             View Details
                                         </button>

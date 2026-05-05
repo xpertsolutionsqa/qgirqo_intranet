@@ -23,7 +23,7 @@ export default function CreateDigitalVoiceModal({
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
 
-        post(route('forum.discussion.store'), {
+        post(route('forum.topic.store'), {
             onSuccess: () => {
                 reset();
                 onClose();

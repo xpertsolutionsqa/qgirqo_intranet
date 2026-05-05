@@ -35,12 +35,12 @@ export default function Welcome({
     challenge,
 }: any) {
     return (
-        <div className="flex min-h-screen flex-col bg-white font-sans text-black">
+        <div className="flex min-h-screen flex-col bg-transparent font-sans text-black">
             <Head title="Welcome" />
 
             <PublicHeader />
 
-            <main className="bg-white">
+            <main className="bg-transparent">
                 <div className="mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-8">
                     {/* Welcome Slogan */}
                     <div className="py-[2.4rem]">
@@ -80,7 +80,7 @@ export default function Welcome({
                             </div>
 
                             {/* ROW 3: Humans of QGIRCO, Employee of Month, Offers */}
-                            <div className="mb-12 grid grid-cols-1 gap-6 lg:grid-cols-3">
+                            <div className="mb-12 grid grid-cols-1 gap-6 lg:grid-cols-[1.2fr_1fr_1.2fr]">
                                 <HumansOfQgirco featured={humans_wall} />
                                 <EmployeesOfMonth winners={emp_of_the_month} />
                                 <EmployeeOffers offers={promotions} />
@@ -104,7 +104,7 @@ export default function Welcome({
 
                             {/* ROW 6: Discussion Forum & Poll */}
                             <div className="mb-12 grid grid-cols-1 gap-6 lg:grid-cols-12">
-                                <div className="lg:col-span-8">
+                                <div className="lg:col-span-8 ">
                                     <DiscussionForum topics={discussion_topics} />
                                 </div>
                                 <div className="lg:col-span-4 space-y-6">

@@ -132,7 +132,7 @@ export default function ChallengesIndex({ challenges }: PageProps) {
                             <table className="w-full text-left text-sm">
                                 <thead className="border-b border-gray-200 bg-gray-50 text-xs font-semibold uppercase text-gray-600 dark:border-gray-700 dark:bg-gray-900/50 dark:text-gray-400">
                                     <tr>
-                                        <th className="px-6 py-4">Image</th>
+                                        <th className="px-6 py-4">Media</th>
                                         <th className="px-6 py-4">Question</th>
                                         <th className="px-6 py-4">Scheduled Date</th>
                                         <th className="px-6 py-4">Options</th>
@@ -145,11 +145,19 @@ export default function ChallengesIndex({ challenges }: PageProps) {
                                         <tr key={challenge.id} className="hover:bg-gray-50 dark:hover:bg-gray-900/30">
                                             <td className="px-6 py-4">
                                                 {challenge.image_path ? (
-                                                    <img
-                                                        src={`/storage/${challenge.image_path}`}
-                                                        className="h-12 w-16 rounded-lg object-cover shadow-sm border border-gray-100"
-                                                        alt="Challenge"
-                                                    />
+                                                    challenge.image_path.match(/\.(mp4|mov|avi|webm)$/i) ? (
+                                                        <video
+                                                            src={`/storage/${challenge.image_path}`}
+                                                            className="h-12 w-16 rounded-lg object-cover shadow-sm border border-gray-100"
+                                                            muted
+                                                        />
+                                                    ) : (
+                                                        <img
+                                                            src={`/storage/${challenge.image_path}`}
+                                                            className="h-12 w-16 rounded-lg object-cover shadow-sm border border-gray-100"
+                                                            alt="Challenge"
+                                                        />
+                                                    )
                                                 ) : (
                                                     <div className="flex h-12 w-16 items-center justify-center rounded-lg bg-gray-100 text-gray-400 border border-dashed border-gray-200">
                                                         <i className="fa-solid fa-image text-xs"></i>
@@ -251,13 +259,13 @@ export default function ChallengesIndex({ challenges }: PageProps) {
                             </div>
 
                             <div>
-                                <InputLabel htmlFor="image" value="Feature Image" />
+                                <InputLabel htmlFor="image" value="Feature Media (Image/Video)" />
                                 <input
                                     id="image"
                                     type="file"
                                     className="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100"
                                     onChange={(e) => setData('image', e.target.files ? e.target.files[0] : null)}
-                                    accept="image/*"
+                                    accept="image/*,video/*"
                                 />
                                 <InputError message={errors.image} className="mt-2" />
                             </div>
@@ -322,13 +330,13 @@ export default function ChallengesIndex({ challenges }: PageProps) {
                             </div>
 
                             <div>
-                                <InputLabel htmlFor="edit_image" value="Feature Image" />
+                                <InputLabel htmlFor="edit_image" value="Feature Media (Image/Video)" />
                                 <input
                                     id="edit_image"
                                     type="file"
                                     className="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100"
                                     onChange={(e) => setData('image', e.target.files ? e.target.files[0] : null)}
-                                    accept="image/*"
+                                    accept="image/*,video/*"
                                 />
                                 <InputError message={errors.image} className="mt-2" />
                             </div>

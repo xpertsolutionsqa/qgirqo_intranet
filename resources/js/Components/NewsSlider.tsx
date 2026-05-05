@@ -24,7 +24,7 @@ export default function NewsSlider({ news }: any) {
     };
 
     return (
-        <div className="news_slider rounded-qa group relative overflow-hidden h-full">
+        <div className="news_slider qa-card rounded-qa shadow-qa border border-qa-border group relative overflow-hidden h-full transition-all duration-500 hover:shadow-2xl">
             <Swiper
                 modules={[Pagination, Autoplay]}
                 pagination={{
@@ -40,9 +40,9 @@ export default function NewsSlider({ news }: any) {
                             <img
                                 src={`/storage/${item.featured_image}`}
                                 alt={item.title}
-                                className="h-full w-full object-cover transition-transform duration-700 "
+                                className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
                             />
-                            <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent" />
+                            <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent transition-opacity duration-500 group-hover:opacity-90" />
                             <div className="qa-media-caption absolute bottom-[55px] left-[26px] z-10 max-w-[500px] text-white">
                                 <div className="news_title mb-1 text-[20px] leading-tight font-bold">
                                     {item.title}

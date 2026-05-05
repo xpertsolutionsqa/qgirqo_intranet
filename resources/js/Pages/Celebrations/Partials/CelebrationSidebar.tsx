@@ -30,7 +30,7 @@ export default function CelebrationSidebar({ months = [], filters }: Props) {
 
     return (
         <aside className="w-full max-w-[380px] overflow-hidden rounded-qa bg-white shadow-qa" data-aos="fade-up">
-            <div className="bg-primary rounded-qa p-[9px_14px] text-center text-[16px] font-bold text-white uppercase tracking-wider">
+            <div className="bg-primary rounded-qa p-[9px_14px] text-center text-[16px] font-bold text-white capatilize tracking-wider">
                 Select Month
             </div>
             <div className="mt-2 p-[18px]">

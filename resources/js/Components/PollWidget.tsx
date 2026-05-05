@@ -26,7 +26,7 @@ export default function PollWidget({ polls }: { polls: Poll }) {
     };
 
     return (
-        <div className="qg_card qg_poll rounded-qa shadow-qa flex h-full flex-col bg-[#e5e5f9] p-[18px_22px_16px]">
+        <div className="qg_card qg_poll rounded-qa shadow-qa flex grow flex-col bg-[#e5e5f9] p-[18px_22px_16px] h-full">
             <h3 className="m-0 text-[22px] font-bold text-black text-center">
                 Polls
             </h3>

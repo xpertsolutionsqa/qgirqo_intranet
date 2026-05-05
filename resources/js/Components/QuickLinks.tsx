@@ -25,16 +25,16 @@ export default function QuickLinks() {
             icon: '/assets/img/person-fill-check.svg',
             href: 'https://ent-qa.menaitech.com/QGI/application/hrms/mename/index.php',
         },
-        {
-            label: (
-                <>
-                    Employee<br />
-                    Directory
-                </>
-            ),
-            icon: '/assets/img/my-profile.svg',
-            href: route('employee.directory'),
-        },
+        // {
+        //     label: (
+        //         <>
+        //             Employee<br />
+        //             Directory
+        //         </>
+        //     ),
+        //     icon: '/assets/img/my-profile.svg',
+        //     href: route('employee.directory'),
+        // },
         {
             label: 'IT',
             icon: '/assets/img/pc-display.svg',
@@ -61,13 +61,13 @@ export default function QuickLinks() {
             // AZENTIO Help Desk
             // https://customer.azentio.com/
         },
-        /* {
+        {
             label: 'Speak Up',
             icon: '/assets/img/speak-up.svg',
             href: '#',
             subtext: 'It’s 100% Anonymous',
-        }, */
-        /* {
+        },
+        {
             label: (
                 <>
                     Policy &<br />
@@ -92,7 +92,7 @@ export default function QuickLinks() {
             label: 'Reports',
             icon: '/assets/img/clipboard-data-fill.svg',
             href: '#',
-        }, */
+        },
     ];
 
     const [isComingSoon, setIsComingSoon] = useState(false);

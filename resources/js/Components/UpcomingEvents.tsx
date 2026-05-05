@@ -1,7 +1,7 @@
 import { EventPost } from '@/interfaces/EventPost';
 import { Link } from '@inertiajs/react';
 import dayjs from 'dayjs';
-import { Navigation, Pagination } from 'swiper/modules';
+import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 // Import Swiper styles
@@ -60,103 +60,208 @@ export default function UpcomingEvents({
     };
 
     return (
-        <div className="qg_card rounded-qa shadow-qa flex h-full flex-col overflow-hidden bg-primary/1">
-            <div className="p-[16px_24px] text-center">
-                <h3 className="m-0 text-[22px] font-bold text-black">
-                    Upcoming Company Events
-                </h3>
-            </div>
-
-            <div className="grow px-[0px]">
-                {events.length > 0 ? (
-                    <Swiper
-                        modules={[Navigation, Pagination]}
-                        navigation={{
-                            prevEl: '.ev-prev',
-                            nextEl: '.ev-next',
-                        }}
-                        pagination={{
-                            el: '.ev-pagination',
-                            clickable: true,
-                        }}
-                        className="h-full"
-                    >
-                        {chunks.map((chunk, idx) => (
-                            <SwiperSlide key={idx}>
-                                <div className="space-y-4 py-2 px-4">
-                                    {chunk.map((event) => (
-                                        <div
-                                            key={event.id}
-                                            className="border-qa-border group relative rounded-[2px] border bg-white "
-                                        >
-                                            <div className="flex items-stretch gap-4">
-                                                <div className="text-primary flex shrink-0 flex-col justify-center rounded-l-[2px] bg-primary/10 px-4 py-4 text-center font-bold leading-[1.1] transition-all duration-300 group-hover:bg-primary group-hover:text-white">
-                                                    <span className="block text-3xl">
-                                                        {dayjs(event.event_date).format('DD')}
-                                                    </span>
-                                                    <small className="block text-[10px] uppercase opacity-70">
-                                                        {dayjs(event.event_date).format('MMMM')}
-                                                    </small>
-                                                </div>
-                                                <div className="grow py-4">
-                                                    <div className="hover:text-primary mb-1 cursor-pointer text-[14px] font-bold text-black transition-colors line-clamp-1 group-hover:font-extrabold">
-                                                        {event.title}
-                                                    </div>
-                                                    <div className="text-qa-muted flex flex-col gap-0.5 text-[11px]">
-                                                        <div className="flex items-center gap-1.5">
-                                                            <i className="fa-regular fa-clock me-1 text-[12px]"></i>
-                                                            {event.event_time ? dayjs(event.event_time).format('h:mm A') : '09:00 AM'}
-                                                            -{' '}
-                                                            {event.event_end_time ? dayjs(event.event_end_time).format('h:mm A') : '05:00 PM'}
-                                                        </div>
-                                                        <div className="flex items-center gap-1.5">
-                                                            <i className="fa-regular fa-location-dot me-1 text-[12px]"></i>
-                                                            <span className="line-clamp-1">{event.event_venue}</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <button
-                                                    className="text-primary/40 hover:text-primary transition-colors pr-4"
-                                                    title="Add to calendar"
-                                                    onClick={() => downloadIcsFile(event)}
-                                                >
-                                                    <i className="fa-duotone fa-solid fa-calendar-plus text-[20px]"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    ))}
-                                </div>
-                            </SwiperSlide>
-                        ))}
-                    </Swiper>
-                ) : (
-                    <div className="flex flex-col items-center justify-center py-10 text-center opacity-60">
-                        <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary/5">
-                            <i className="fa-light fa-calendar-xmark text-primary text-[32px]"></i>
-                        </div>
-                        <h4 className="m-0 text-[16px] font-semibold text-black">No Upcoming Company Events</h4>
-                        <p className="mt-1 text-[12px]">Stay tuned for future events!</p>
-                    </div>
-                )}
-            </div>
-
-            <div className="relative flex h-[52px] items-center justify-center gap-[10px] p-[10px_26px]">
-                <div className="mx-auto flex items-center gap-[2px]">
-                    <button className="ev-prev flex h-[34px] w-[34px] cursor-pointer items-center justify-center rounded-[10px] border-none bg-transparent text-black hover:bg-white/40 disabled:cursor-auto disabled:opacity-30">
-                        <i className="fa-light fa-chevron-left text-[14px]"></i>
-                    </button>
-                    <div className="ev-pagination flex !w-auto items-center" />
-                    <button className="ev-next flex h-[34px] w-[34px] cursor-pointer items-center justify-center rounded-[10px] border-none bg-transparent text-black hover:bg-white/40 disabled:cursor-auto disabled:opacity-30">
-                        <i className="fa-light fa-chevron-right text-[14px]"></i>
-                    </button>
+        <>
+            {/* Latest Modernized Design (2026-04-28) */}
+            <div className="qg_card group rounded-qa border border-qa-border shadow-qa transition-all duration-500 hover:shadow-2xl flex h-full flex-col overflow-hidden bg-gradient-to-br from-[#f8faff] to-[#eef2ff]">
+                <div className="p-[16px_24px] text-center bg-primary">
+                    <h3 className="m-0 text-xl font-bold text-white capatilize tracking-wider">
+                        Upcoming Company Events
+                    </h3>
                 </div>
-                <Link
-                    href={route('events.public')}
-                    className="text-primary absolute right-[26px] text-[12px] font-normal underline hover:text-black"
-                >
-                    View All
-                </Link>
+
+                <div className="grow px-6">
+                    {events.length > 0 ? (
+                        <Swiper
+                            modules={[Navigation, Pagination, Autoplay]}
+                            autoplay={{ delay: 5000, disableOnInteraction: false }}
+                            loop={events.length > 3}
+                            navigation={{
+                                prevEl: '.ev-prev',
+                                nextEl: '.ev-next',
+                            }}
+                            pagination={{
+                                el: '.ev-pagination',
+                                clickable: true,
+                            }}
+                            className="h-full"
+                        >
+                            {chunks.map((chunk, idx) => (
+                                <SwiperSlide key={idx}>
+                                    <div className="space-y-4 py-4 px-2">
+                                        {chunk.map((event) => (
+                                            <div
+                                                key={event.id}
+                                                className="border-qa-border group/item relative rounded-lg border bg-white shadow-sm transition-all duration-300 hover:shadow-md hover:border-primary/30"
+                                            >
+                                                <div className="flex items-stretch gap-4">
+                                                    <div className="text-primary flex shrink-0 flex-col justify-center rounded-l-lg bg-primary/5 px-4 py-4 text-center font-bold leading-[1.1] transition-all duration-300 group-hover/item:bg-primary group-hover/item:text-white w-16">
+                                                        <span className="block text-2xl">
+                                                            {dayjs(event.event_date).format('DD')}
+                                                        </span>
+                                                        <small className="block text-[11px] uppercase opacity-70">
+                                                            {dayjs(event.event_date).format('MMMM')}
+                                                        </small>
+                                                    </div>
+                                                    <div className="grow py-3">
+                                                        <div className="mb-1 text-[15px] font-bold text-black transition-colors line-clamp-1 group-hover/item:text-primary">
+                                                            {event.title}
+                                                        </div>
+                                                        <div className="text-qa-muted flex flex-col gap-0.5 text-[13px] font-medium">
+                                                            <div className="flex items-center gap-1.5">
+                                                                <i className="fa-regular fa-clock text-[12px]"></i>
+                                                                {event.event_time ? dayjs(event.event_time).format('h:mm A') : '09:00 AM'}
+                                                                -{' '}
+                                                                {event.event_end_time ? dayjs(event.event_end_time).format('h:mm A') : '05:00 PM'}
+                                                            </div>
+                                                            <div className="flex items-center gap-1">
+                                                                <i className="fa-regular fa-location-dot text-[12px]"></i>
+                                                                <span className="line-clamp-1">{event.event_venue}</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <button
+                                                        className="text-primary/30 hover:text-primary transition-all pr-4 transform hover:scale-110 active:scale-95"
+                                                        title="Add to calendar"
+                                                        onClick={() => downloadIcsFile(event)}
+                                                    >
+                                                        <i className="fa-duotone fa-solid fa-calendar-plus text-[18px]"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </SwiperSlide>
+                            ))}
+                        </Swiper>
+                    ) : (
+                        <div className="flex flex-col items-center justify-center py-12 text-center opacity-60">
+                            <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary/5">
+                                <i className="fa-light fa-calendar-xmark text-primary text-[32px]"></i>
+                            </div>
+                            <h4 className="m-0 text-[16px] font-semibold text-black">No Upcoming Company Events</h4>
+                            <p className="mt-1 text-[12px]">Stay tuned for future events!</p>
+                        </div>
+                    )}
+                </div>
+
+                <div className="relative flex h-[52px] items-center justify-center gap-[10px] p-[10px_26px] border-t border-black/5 bg-black/2">
+                    <div className="mx-auto flex items-center gap-[2px]">
+                        <button className="ev-prev flex h-[34px] w-[34px] cursor-pointer items-center justify-center rounded-[10px] border-none bg-transparent text-black hover:bg-black/5 disabled:cursor-auto disabled:opacity-30">
+                            <i className="fa-light fa-chevron-left text-[14px]"></i>
+                        </button>
+                        <div className="ev-pagination flex !w-auto items-center pb-1" />
+                        <button className="ev-next flex h-[34px] w-[34px] cursor-pointer items-center justify-center rounded-[10px] border-none bg-transparent text-black hover:bg-black/5 disabled:cursor-auto disabled:opacity-30">
+                            <i className="fa-light fa-chevron-right text-[14px]"></i>
+                        </button>
+                    </div>
+                    <Link
+                        href={route('events.public')}
+                        className="text-primary absolute right-[26px] text-[12px] font-bold underline hover:text-black uppercase tracking-tight"
+                    >
+                        View All
+                    </Link>
+                </div>
             </div>
+
+            {/* Previous Design (Commented out as requested) */}
+            {/* <div className="qg_card rounded-qa shadow-qa flex h-full flex-col overflow-hidden bg-primary/1">
+                <div className="p-[16px_24px] text-center">
+                    <h3 className="m-0 text-[22px] font-bold text-black">
+                        Upcoming Company Events
+                    </h3>
+                </div>
+
+                <div className="grow px-[0px]">
+                    {events.length > 0 ? (
+                        <Swiper
+                            modules={[Navigation, Pagination]}
+                            navigation={{
+                                prevEl: '.ev-prev',
+                                nextEl: '.ev-next',
+                            }}
+                            pagination={{
+                                el: '.ev-pagination',
+                                clickable: true,
+                            }}
+                            className="h-full"
+                        >
+                            {chunks.map((chunk, idx) => (
+                                <SwiperSlide key={idx}>
+                                    <div className="space-y-4 py-2 px-4">
+                                        {chunk.map((event) => (
+                                            <div
+                                                key={event.id}
+                                                className="border-qa-border group relative rounded-[2px] border bg-white "
+                                            >
+                                                <div className="flex items-stretch gap-4">
+                                                    <div className="text-primary flex shrink-0 flex-col justify-center rounded-l-[2px] bg-primary/10 px-4 py-4 text-center font-bold leading-[1.1] transition-all duration-300 group-hover:bg-primary group-hover:text-white">
+                                                        <span className="block text-3xl">
+                                                            {dayjs(event.event_date).format('DD')}
+                                                        </span>
+                                                        <small className="block text-[10px] uppercase opacity-70">
+                                                            {dayjs(event.event_date).format('MMMM')}
+                                                        </small>
+                                                    </div>
+                                                    <div className="grow py-4">
+                                                        <div className="hover:text-primary mb-1 cursor-pointer text-[14px] font-bold text-black transition-colors line-clamp-1 group-hover:font-extrabold">
+                                                            {event.title}
+                                                        </div>
+                                                        <div className="text-qa-muted flex flex-col gap-0.5 text-[11px]">
+                                                            <div className="flex items-center gap-1.5">
+                                                                <i className="fa-regular fa-clock me-1 text-[12px]"></i>
+                                                                {event.event_time ? dayjs(event.event_time).format('h:mm A') : '09:00 AM'}
+                                                                -{' '}
+                                                                {event.event_end_time ? dayjs(event.event_end_time).format('h:mm A') : '05:00 PM'}
+                                                            </div>
+                                                            <div className="flex items-center gap-1.5">
+                                                                <i className="fa-regular fa-location-dot me-1 text-[12px]"></i>
+                                                                <span className="line-clamp-1">{event.event_venue}</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <button
+                                                        className="text-primary/40 hover:text-primary transition-colors pr-4"
+                                                        title="Add to calendar"
+                                                        onClick={() => downloadIcsFile(event)}
+                                                    >
+                                                        <i className="fa-duotone fa-solid fa-calendar-plus text-[20px]"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </SwiperSlide>
+                            ))}
+                        </Swiper>
+                    ) : (
+                        <div className="flex flex-col items-center justify-center py-10 text-center opacity-60">
+                            <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary/5">
+                                <i className="fa-light fa-calendar-xmark text-primary text-[32px]"></i>
+                            </div>
+                            <h4 className="m-0 text-[16px] font-semibold text-black">No Upcoming Company Events</h4>
+                            <p className="mt-1 text-[12px]">Stay tuned for future events!</p>
+                        </div>
+                    )}
+                </div>
+
+                <div className="relative flex h-[52px] items-center justify-center gap-[10px] p-[10px_26px]">
+                    <div className="mx-auto flex items-center gap-[2px]">
+                        <button className="ev-prev flex h-[34px] w-[34px] cursor-pointer items-center justify-center rounded-[10px] border-none bg-transparent text-black hover:bg-white/40 disabled:cursor-auto disabled:opacity-30">
+                            <i className="fa-light fa-chevron-left text-[14px]"></i>
+                        </button>
+                        <div className="ev-pagination flex !w-auto items-center" />
+                        <button className="ev-next flex h-[34px] w-[34px] cursor-pointer items-center justify-center rounded-[10px] border-none bg-transparent text-black hover:bg-white/40 disabled:cursor-auto disabled:opacity-30">
+                            <i className="fa-light fa-chevron-right text-[14px]"></i>
+                        </button>
+                    </div>
+                    <Link
+                        href={route('events.public')}
+                        className="text-primary absolute right-[26px] text-[12px] font-normal underline hover:text-black"
+                    >
+                        View All
+                    </Link>
+                </div>
+            </div> */}
 
             <style
                 dangerouslySetInnerHTML={{
@@ -179,6 +284,6 @@ export default function UpcomingEvents({
             `,
                 }}
             />
-        </div>
+        </>
     );
 }

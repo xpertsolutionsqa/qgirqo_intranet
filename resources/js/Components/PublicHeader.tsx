@@ -445,7 +445,7 @@ export default function PublicHeader() {
                                 {selectedNotif?.title}
                             </h2>
                             {selectedNotif?.meta?.wish_type && (
-                                <span className="mt-1 text-[10px] font-bold uppercase tracking-wider text-primary bg-primary/5 w-max px-2 py-0.5 rounded">
+                                <span className="mt-1 text-[10px] font-bold capatilize tracking-wider text-primary bg-primary/5 w-max px-2 py-0.5 rounded">
                                     {selectedNotif.meta.wish_type === 'birthday' ? 'Birthday Wish' :
                                         selectedNotif.meta.wish_type === 'anniversary' ? 'Anniversary Wish' :
                                             'Achievement Congratulations'}

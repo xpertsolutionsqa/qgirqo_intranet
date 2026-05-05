@@ -247,7 +247,7 @@ export default function Authenticated({
                             </div>
                         </SidebarLink>
 
-                        <div className="px-2 pt-4 pb-2 text-xs font-semibold tracking-wider text-gray-400 uppercase">
+                        <div className="px-2 pt-4 pb-2 text-xs font-semibold tracking-wider text-gray-400 capatilize">
                             Community
                         </div>
 

@@ -47,7 +47,7 @@ export default function EmployeeDirectory({ employees, departments, filters }: a
                     <div className="flex gap-6">
                         <div className="flex-grow">
                             <div className="mb-8 overflow-hidden rounded-qa bg-white p-8 shadow-qa">
-                                <h1 className="text-3xl font-bold text-black uppercase mb-6">Employee Directory</h1>
+                                <h1 className="text-3xl font-bold text-black capatilize mb-6">Employee Directory</h1>
 
                                 <div className="flex flex-col md:flex-row gap-4 mb-8">
                                     {/* Search Bar */}
@@ -91,8 +91,8 @@ export default function EmployeeDirectory({ employees, departments, filters }: a
                                                     )}
                                                 </div>
                                                 <h3 className="text-[17px] font-bold text-black line-clamp-1">{emp.name}</h3>
-                                                <p className="text-[12px] font-bold text-primary uppercase mt-1 line-clamp-1">{emp.profile?.designation?.title || 'Team Member'}</p>
-                                                <p className="text-[11px] text-gray-500 font-bold uppercase tracking-wider mt-0.5">{emp.profile?.department?.name || 'General'}</p>
+                                                <p className="text-[12px] font-bold text-primary capatilize mt-1 line-clamp-1">{emp.profile?.designation?.title || 'Team Member'}</p>
+                                                <p className="text-[11px] text-gray-500 font-bold capatilize tracking-wider mt-0.5">{emp.profile?.department?.name || 'General'}</p>
 
                                                 <div className="mt-4 pt-4 border-t border-gray-200 w-full flex flex-col gap-2">
                                                     <a href={`mailto:${emp.email}`} className="text-[12px] text-gray-600 hover:text-primary flex items-center justify-center gap-2 font-medium">

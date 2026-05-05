@@ -85,16 +85,19 @@ class EmployeeService
 
 
             // Update profile
-            return $user->profile->update([
-                'department_id' => $data['department_id'],
-                'designation_id' => $data['designation_id'],
-                'employee_id' => $data['employee_id'],
-                'phone' => $data['phone'] ?? null,
-                'dob' => $data['dob'] ?? null,
-                'avatar' => $avatar ?? $user->profile->avatar,
-                'joining_date' => $data['joining_date'] ?? null,
-                'emergency_contact' => $data['emergency_contact'] ?? null,
-            ]);
+            return $user->profile()->updateOrCreate(
+                ['user_id' => $user->id],
+                [
+                    'department_id' => $data['department_id'],
+                    'designation_id' => $data['designation_id'],
+                    'employee_id' => $data['employee_id'],
+                    'phone' => $data['phone'] ?? null,
+                    'dob' => $data['dob'] ?? null,
+                    'avatar' => $avatar ?? $user->profile?->avatar,
+                    'joining_date' => $data['joining_date'] ?? null,
+                    'emergency_contact' => $data['emergency_contact'] ?? null,
+                ]
+            );
         });
     }
 

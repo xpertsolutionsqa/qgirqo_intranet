@@ -59,7 +59,7 @@ export default function PublicFooter() {
             title: 'Community',
             links: [
                 { label: 'Promotions & Offers', href: '/exclusive-offers' },
-                { label: 'Birthday Calendar', href: '/celebrations' },
+                // { label: 'Birthday Calendar', href: '/celebrations' },
                 { label: 'Winners Archive', href: '/employee-of-the-quarter/archive' },
                 { label: 'Discussion Forum', href: '/forum/discussion' },
                 /* { label: 'Poll', href: '#' }, */
