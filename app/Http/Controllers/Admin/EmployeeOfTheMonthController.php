@@ -18,10 +18,17 @@ class EmployeeOfTheMonthController extends Controller
             ->paginate(10);
 
         $employees = User::with('profile')->get();
+        $categories = [
+            'Top Achiever',
+            'Support Function Champion',
+            'Digital Champion',
+            'Project Star'
+        ];
 
         return Inertia::render('Admin/EmployeeOfTheMonth/Index', [
             'winners' => $winners,
             'employees' => $employees,
+            'categories' => $categories,
         ]);
     }
 

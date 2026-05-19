@@ -40,15 +40,15 @@ export default function WinnerArchive({ winnersGrouped, years, filters }: any) {
                                                 <div className="h-px flex-grow bg-gray-100"></div>
                                             </div>
 
-                                            <div className="space-y-12">
-                                                {Object.keys(winnersGrouped[year]).sort().reverse().map(quarter => (
-                                                    <div key={quarter}>
+                                             <div className="space-y-12">
+                                                {Object.keys(winnersGrouped[year]).sort().map(category => (
+                                                    <div key={category}>
                                                         <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-primary/5 text-primary text-sm font-black uppercase tracking-widest mb-6 border border-primary/10">
-                                                            Financial {quarter}
+                                                            {category}
                                                         </div>
 
                                                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                                                            {winnersGrouped[year][quarter].map((winner: any) => (
+                                                            {winnersGrouped[year][category].map((winner: any) => (
                                                                 <div key={winner.id} className="bg-qa-bg rounded-xl p-6 border border-gray-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden group">
                                                                     {/* Background decoration */}
                                                                     <div className="absolute -right-4 -top-4 text-gray-100/50 text-6xl opacity-20 group-hover:opacity-40 transition-opacity">
@@ -68,6 +68,9 @@ export default function WinnerArchive({ winnersGrouped, years, filters }: any) {
                                                                         <div>
                                                                             <h3 className="font-bold text-lg leading-tight line-clamp-1">{winner.user.name}</h3>
                                                                             <p className="text-[11px] font-bold text-primary uppercase tracking-wider">{winner.user.profile?.designation?.title || 'Team Member'}</p>
+                                                                            {winner.user.profile?.department?.name && (
+                                                                                <p className="text-[11px] text-gray-400 uppercase tracking-wider mt-0.5">{winner.user.profile.department.name}</p>
+                                                                            )}
                                                                         </div>
                                                                     </div>
 

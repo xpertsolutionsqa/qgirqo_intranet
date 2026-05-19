@@ -20,9 +20,14 @@ class PublicWinnerController extends Controller
             $query->where('quarter', $request->quarter);
         }
 
-        // Group by Year and Quarter for the archive view
-        $winners = $query->latest('year')->latest('quarter')->get()
-            ->groupBy(['year', 'quarter']);
+        // Group by Year and Category for the archive view
+        $winners = $query->latest('year')->get()
+            ->groupBy([
+                'year',
+                function ($item) {
+                    return $item->category ?: 'General Awards';
+                }
+            ]);
 
         return Inertia::render('WinnerArchive', [
             'winnersGrouped' => $winners,

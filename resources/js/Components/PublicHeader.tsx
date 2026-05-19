@@ -28,6 +28,7 @@ export default function PublicHeader() {
     const [showSearch, setShowSearch] = useState(false);
 
     const isAdmin = auth.role && ['super-admin', 'admin', 'hr'].includes(auth.role);
+    const isRiskManager = auth.role === 'risk-management';
 
     const [weatherData, setWeatherData] = useState<any>(null);
     const [weatherLoading, setWeatherLoading] = useState(true);
@@ -160,7 +161,7 @@ export default function PublicHeader() {
                             <Link href="/">
                                 {/* <ApplicationLogo className="h-[50px] w-[50px]" /> */}
                                 <img
-                                    src="assets/img/qgirco-logo-white.svg"
+                                    src="/assets/img/qgirco-logo-white.svg"
                                     alt="logo"
                                 />
                             </Link>
@@ -390,6 +391,12 @@ export default function PublicHeader() {
                                         >
                                             View Profile
                                         </button>
+                                    )}
+
+                                    {(isRiskManager) && (
+                                        <Dropdown.Link href={route('risk.index')}>
+                                            Manage Risk
+                                        </Dropdown.Link>
                                     )}
                                     <Dropdown.Link
                                         href={route('logout')}

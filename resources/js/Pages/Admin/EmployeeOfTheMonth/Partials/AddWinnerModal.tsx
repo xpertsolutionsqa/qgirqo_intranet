@@ -11,9 +11,10 @@ interface Props {
     show: boolean;
     onClose: () => void;
     employees: any[];
+    categories: string[];
 }
 
-export default function AddWinnerModal({ show, onClose, employees }: Props) {
+export default function AddWinnerModal({ show, onClose, employees, categories = [] }: Props) {
     const currentYear = new Date().getFullYear();
     const currentMonth = new Date().getMonth() + 1;
     let currentQuarter = 'Q1';
@@ -166,11 +167,11 @@ export default function AddWinnerModal({ show, onClose, employees }: Props) {
                             required
                         >
                             <option value="">Select a category...</option>
-                            <option value="Star Performer">Star Performer</option>
-                            <option value="Outstanding Leadership">Outstanding Leadership</option>
-                            <option value="Excellence in Service">Excellence in Service</option>
-                            <option value="Team Spirit Award">Team Spirit Award</option>
-                            <option value="Customer Focus">Customer Focus</option>
+                            {categories.map((cat) => (
+                                <option key={cat} value={cat}>
+                                    {cat}
+                                </option>
+                            ))}
                         </select>
                         <InputError message={errors.category} className="mt-2" />
                     </div>

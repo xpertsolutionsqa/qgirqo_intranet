@@ -85,8 +85,15 @@ Route::middleware('auth')->group(function () {
     Route::post('/api/notifications/mark-read', [\App\Http\Controllers\Api\NotificationController::class, 'markAsRead'])->name('api.notifications.mark-read');
     Route::post('/api/wishes', [\App\Http\Controllers\Api\NotificationController::class, 'storeWish'])->name('api.wishes.store');
     Route::get('/api/wishes/check', [\App\Http\Controllers\Api\NotificationController::class, 'checkWishStatus'])->name('api.wishes.check');
+    // Risk Management
+    Route::middleware(['role:risk-management'])->group(function () {
+        Route::get('/manage-risk', [\App\Http\Controllers\RiskReportController::class, 'index'])->name('risk.index');
+        Route::post('/manage-risk', [\App\Http\Controllers\RiskReportController::class, 'store'])->name('risk.store');
+        Route::delete('/manage-risk/{id}', [\App\Http\Controllers\RiskReportController::class, 'destroy'])->name('risk.destroy');
+    });
 });
 
+Route::get('/policy-procedures', [\App\Http\Controllers\RiskReportController::class, 'publicIndex'])->name('risk.public');
 Route::get('/api/search', [\App\Http\Controllers\Api\SearchController::class, 'search'])->name('api.search');
 
 

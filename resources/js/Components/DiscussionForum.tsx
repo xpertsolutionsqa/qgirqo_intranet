@@ -145,9 +145,15 @@ export default function DiscussionForum({ topics }: { topics: any[] }) {
             {/* Top Line */}
             <div className="mb-2 h-[2px] rounded-full bg-[#e5e5f9]" />
 
-            <h3 className="qg_card_title df_title mb-[12px] text-center text-[22px] font-bold text-black">
+            {/* <h3 className="qg_card_title df_title mb-[12px] text-center text-[22px] font-bold text-black">
                 Discussion Forum
-            </h3>
+            </h3> */}
+            <div className='mb-6'>
+                <h3 className=" text-center text-[22px] font-bold text-black">
+                    Discussion Forum
+                </h3>
+                <p className="text-center text-[12px] text-[#58595B]">Employee feedback corner - Share your thoughts with us</p>
+            </div>
 
             <Swiper
                 modules={[Navigation]}

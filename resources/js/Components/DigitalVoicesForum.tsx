@@ -131,9 +131,12 @@ export default function DigitalVoicesForum({ topics = [] }: { topics?: any[] }) 
 
     return (
         <div className="qg_card dvf_card rounded-qa shadow-qa relative flex h-full flex-col overflow-hidden bg-[#e5e5f9] p-4">
-            <h3 className="mb-6 text-center text-[22px] font-bold text-black">
-                Digital Voices Forum
-            </h3>
+            <div className='mb-6'>
+                <h3 className=" text-center text-[22px] font-bold text-black">
+                    Digital Voices Forum
+                </h3>
+                <p className="text-center text-[12px] text-[#58595B]">Have Suggestions? &amp;Share it with us</p>
+            </div>
 
             <div className="flex-grow">
                 {ideas.length > 0 ? (

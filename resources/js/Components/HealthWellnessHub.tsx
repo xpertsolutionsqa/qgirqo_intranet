@@ -77,27 +77,26 @@ export default function HealthWellnessHub({
                             />
                         )}
 
-                        {/* Badge/Overlay */}
-                        <div className="absolute top-4 left-4 right-4 text-center transform-gpu">
-                            <span className="bg-primary rounded-full px-4 py-2 text-[11px] font-bold text-white shadow-xl inline-block">
-                                Intranet Competition
-                            </span>
-                        </div>
+                        {/*                       
 
                         <div className="absolute bottom-6 left-6 right-6 transform-gpu">
                             <div className="bg-black/40 border border-white/20 block text-center rounded-xl p-3 text-[12px] font-bold text-white shadow-lg">
                                 Daily Knowledge Booster
                             </div>
-                        </div>
+                        </div> */}
                     </div>
 
-                    {/* Right Side: Challenge Area */}
-                    <div className="flex flex-grow flex-col p-6 md:p-8">
+                    {/* Right Side: Challenge Area  p-6 md:p-8*/}
+                    <div className="flex flex-grow flex-col p-4">
+
+                        <h3 className="mb-6 text-center text-[22px] font-bold text-black">
+                            Intranet Competition
+                        </h3>
                         <div className="mb-6">
                             <h3 className="text-primary/60 text-[11px] font-bold capatilize tracking-wider mb-1">
                                 Today's Question
                             </h3>
-                            <h2 className="text-[22px] font-extrabold text-black leading-tight">
+                            <h2 className="text-[18px] font-extrabold text-primary leading-tight">
                                 {challenge.data.question}
                             </h2>
                         </div>

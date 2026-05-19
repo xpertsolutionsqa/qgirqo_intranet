@@ -27,9 +27,10 @@ interface Props {
         data: Winner[];
     };
     employees: any[];
+    categories: string[];
 }
 
-export default function Index({ winners, employees }: Props) {
+export default function Index({ winners, employees, categories }: Props) {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const monthNames = [
@@ -156,6 +157,7 @@ export default function Index({ winners, employees }: Props) {
                 show={isModalOpen}
                 onClose={() => setIsModalOpen(false)}
                 employees={employees}
+                categories={categories}
             />
         </AuthenticatedLayout>
     );

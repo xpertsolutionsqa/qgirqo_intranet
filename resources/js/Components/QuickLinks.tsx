@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Modal from './Modal';
+import { usePage } from '@inertiajs/react';
 
 type LinkItem = {
     label: string;
@@ -14,6 +15,7 @@ type QuickLink = {
     href: string | LinkItem[];
     subtext?: string;
 };
+
 
 export default function QuickLinks() {
     const [selectedLink, setSelectedLink] = useState<QuickLink | null>(null);
@@ -75,7 +77,7 @@ export default function QuickLinks() {
                 </>
             ),
             icon: '/assets/img/Subtract.svg',
-            href: '#',
+            href: route('risk.public'),
         },
         {
             label: (
@@ -101,6 +103,7 @@ export default function QuickLinks() {
         e: React.MouseEvent<HTMLAnchorElement>,
         link: QuickLink,
     ) => {
+
         if (Array.isArray(link.href)) {
             e.preventDefault();
             setSelectedLink(link);

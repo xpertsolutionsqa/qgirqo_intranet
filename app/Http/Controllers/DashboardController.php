@@ -217,7 +217,7 @@ class DashboardController extends Controller
                 ->take(3)
                 ->get(),
             'emp_of_the_month' => EmployeeOfTheMonth::with(['user.profile', 'user.profile.department', 'user.profile.designation'])
-                ->latest('year')
+                ->where('year', date('Y'))
                 ->latest('month')
                 ->take(5)
                 ->get(),
@@ -225,6 +225,7 @@ class DashboardController extends Controller
             'health_articles' => Post::where('type', 'health_article')->where('is_published', true)->latest()->take(2)->get(),
             'humans_wall' => \App\Models\HumansOfQgirco::with('user.profile.department')->where('is_active', true)->latest()->first(),
             'welcome_slogan' => \App\Models\Setting::get('welcome_slogan'),
+            'risk_reports' => \App\Models\RiskReport::latest()->take(5)->get(),
         ]);
     }
 
